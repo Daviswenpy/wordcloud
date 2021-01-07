@@ -1,0 +1,11 @@
+/* Optionally make the continue and save button look like primary */
+/*input[name="_continue"]{
+    border: 2px solid #5b80b2;
+    background: #7CA0C7;
+    color: white;
+}*/
+
+/* Hide the "Delete", "Add Another" and "Save" buttons, customize this to what you need  */
+./*deletelink, */ input[name="_addanother"] /*, input[name="_save"]*/{
+    display: none;
+}

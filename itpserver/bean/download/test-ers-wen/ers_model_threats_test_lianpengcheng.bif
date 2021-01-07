@@ -1,0 +1,39 @@
+network unknown {
+}
+variable 2ccae299-81c6-3d86-b42c-dcfc364e5280 {
+  type discrete [ 3 ] { 0, 1 , 2 };
+}
+variable 6a90d5e8-c967-3b2d-937f-f5572e49375e {
+  type discrete [ 2 ] { 0, 1 };
+}
+variable af55953d-669f-36e3-bdb8-7ee28319e140 {
+  type discrete [ 2 ] { 0, 1 };
+}
+variable data_stolen{
+  type discrete [ 2 ] { 0, 1 };
+}
+
+probability ( 2ccae299-81c6-3d86-b42c-dcfc364e5280 ) {
+  table 0.75, 0.24, 0.01;
+}
+probability ( 6a90d5e8-c967-3b2d-937f-f5572e49375e ) {
+  table 0.88, 0.12;
+}
+probability ( af55953d-669f-36e3-bdb8-7ee28319e140 ) {
+  table 0.88, 0.12;
+}
+
+probability ( data_stolen | 2ccae299-81c6-3d86-b42c-dcfc364e5280, 6a90d5e8-c967-3b2d-937f-f5572e49375e, af55953d-669f-36e3-bdb8-7ee28319e140) {
+  (0,0,0) 1, 0;    
+  (0,0,1) 0.60, 0.40; 
+  (0,1,0) 0.30, 0.70; 
+  (0,1,1) 0.28, 0.72; 
+  (1,0,0) 0.20, 0.80;    
+  (1,0,1) 0.18, 0.82; 
+  (1,1,0) 0.15, 0.85; 
+  (1,1,1) 0.13, 0.87; 
+  (2,0,0) 0.10, 0.90; 
+  (2,0,1) 0.10, 0.90;    
+  (2,1,0) 0.08, 0.92; 
+  (2,1,1) 0.05, 0.95;
+}

@@ -1,0 +1,1 @@
+itmadmin ALL=NOPASSWD: /opt/skyguard/itpcli/cli_entry.py

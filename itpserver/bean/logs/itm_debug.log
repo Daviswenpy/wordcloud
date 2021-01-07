@@ -1,0 +1,82 @@
+DEBUG 2020-12-25 07:44:49,954 PID:51664 apibasicmiddleware debuglog 72 JSONAPI:check-in POST /ITMCP/v1/sessions 127.0.0.1
+[BODY] {"username": "itm-admin", "timestamp": 1608853217, "passwordHash": "NDdmMjc1MjVj", "deviceType": 1, "connectionType": 0}
+[DATA] {"clientIP":"127.0.0.1","sessionID":"3cd06c2cee16b8daf2713e53bd82d623b025981d","sessionTimeout":3600,"status":0}
+
+DEBUG 2020-12-25 08:08:00,004 PID:72376 apibasicmiddleware debuglog 72 JSONAPI:check-in POST /ITMCP/v1/sessions 127.0.0.1
+[BODY] {"username": "itm-admin", "timestamp": 1608854846, "passwordHash": "YWUxYWM4MGE5", "deviceType": 1, "connectionType": 0}
+[DATA] {"clientIP":"127.0.0.1","sessionID":"b952e09208f53a4a46aa352c060c5b37e94cad92","sessionTimeout":3600,"status":0}
+
+DEBUG 2020-12-25 08:13:20,566 PID:72376 apibasicmiddleware debuglog 72 JSONAPI:check-in POST /ITMCP/v1/sessions 127.0.0.1
+[BODY] {"username": "itm-admin", "timestamp": 1608855200, "passwordHash": "N2E4N2I4ZGM0", "deviceType": 1, "connectionType": 0}
+[DATA] {"clientIP":"127.0.0.1","sessionID":"8d996c43df088bb2a4159f028723663d75f37ebc","sessionTimeout":3600,"status":0}
+
+DEBUG 2020-12-25 08:20:19,999 PID:73334 apibasicmiddleware debuglog 72 JSONAPI:check-in POST /ITMCP/v1/sessions 127.0.0.1
+[BODY] {"username": "itm-admin", "timestamp": 1608855619, "passwordHash": "YTQ2Mjk2Yzlj", "deviceType": 1, "connectionType": 0}
+[DATA] {"clientIP":"127.0.0.1","sessionID":"922e3b449a541b0153d137b36e79cec512e405c3","sessionTimeout":3600,"status":0}
+
+DEBUG 2020-12-25 08:23:03,984 PID:73626 apibasicmiddleware debuglog 72 JSONAPI:check-in POST /ITMCP/v1/sessions 127.0.0.1
+[BODY] {"username": "itm-admin", "timestamp": 1608855783, "passwordHash": "MzJlYjg3ZmZj", "deviceType": 1, "connectionType": 0}
+[DATA] {"clientIP":"127.0.0.1","sessionID":"604b349abe71b73b54ec836b909554861a909fc0","sessionTimeout":3600,"status":0}
+
+ERROR 2020-12-25 08:29:57,072 PID:73626 exceptions api_exception_handler 91 Framework_exception:<class 'elasticsearch.exceptions.ConnectionError'> str:ConnectionError(<urllib3.connection.HTTPConnection object at 0x7f7bae43b590>: Failed to establish a new connection: [Errno 111] Connection refused) caused by: NewConnectionError(<urllib3.connection.HTTPConnection object at 0x7f7bae43b590>: Failed to establish a new connection: [Errno 111] Connection refused) ES is not ready!!!
+DEBUG 2020-12-25 08:29:57,080 PID:73626 apibasicmiddleware debuglog 72 JSONAPI:register POST /ITMCP/v1/devices/6a6887d4-b195-7ceb-f1d3-4d66eaf164a9 127.0.0.1
+[BODY] {"deviceName": "test-ucss", "deviceID": "test-deviceID", "logSources": []}
+[DATA] {"status":7,"detail":"Elasticsearch Connection refused."}
+
+DEBUG 2020-12-25 09:40:22,104 PID:73626 apibasicmiddleware debuglog 72 JSONAPI:check-in POST /ITMCP/v1/sessions 127.0.0.1
+[BODY] {"username": "itm-admin", "timestamp": 1608860422, "passwordHash": "NmZkNTdjOTIx", "deviceType": 1, "connectionType": 0}
+[DATA] {"clientIP":"127.0.0.1","sessionID":"b51110fa70285e0adb344a5b3b01a5acc87092e1","sessionTimeout":3600,"status":0}
+
+ERROR 2020-12-25 09:42:08,068 PID:73626 exceptions api_exception_handler 91 Framework_exception:<class 'rest_framework.exceptions.AuthenticationFailed'> str:Authentication failed. No traceback.
+DEBUG 2020-12-25 09:42:52,249 PID:73626 apibasicmiddleware debuglog 72 JSONAPI:register POST /ITMCP/v1/devices/6a6887d4-b195-7ceb-f1d3-4d66eaf164a9 127.0.0.1
+[BODY] {"deviceName": "test-ucss", "deviceID": "test-deviceID", "logSources": []}
+[DATA] {"status":1,"detail":"Authentication failed."}
+
+DEBUG 2020-12-25 09:45:15,590 PID:73626 apibasicmiddleware debuglog 72 JSONAPI:check-in POST /ITMCP/v1/sessions 127.0.0.1
+[BODY] {"username": "itm-admin", "timestamp": 1608860715, "passwordHash": "YjE2OTdhMjFj", "deviceType": 1, "connectionType": 0}
+[DATA] {"clientIP":"127.0.0.1","sessionID":"b882392f37ceb0f425b3f6e226a150c96c7a4f3d","sessionTimeout":3600,"status":0}
+
+DEBUG 2020-12-25 09:47:49,036 PID:73626 apibasicmiddleware debuglog 72 JSONAPI:check-in POST /ITMCP/v1/sessions 127.0.0.1
+[BODY] {"username": "itm-admin", "timestamp": 1608860786, "passwordHash": "NTJhYTY5YTY4", "deviceType": 1, "connectionType": 0}
+[DATA] {"clientIP":"127.0.0.1","sessionID":"ad9349d966ad269bfc2520186cc959caa18b0f92","sessionTimeout":3600,"status":0}
+
+INFO 2020-12-25 09:49:58,572 PID:73626 viewsfuncs notify_zodiac 134 Receive XMLRPC message result is None.
+ERROR 2020-12-25 09:49:58,670 PID:73626 viewsfuncs device_iptables_mapping 66 Device iptables set and ucss mapping failed.
+Traceback (most recent call last):
+  File "/home/ubuntu/workspace/skyguard/itpserver/bean/itm/viewsfuncs.py", line 63, in device_iptables_mapping
+    with open(config.UCSS_MAPPING, "w") as jf:
+IOError: [Errno 2] No such file or directory: '/opt/skyguard/itpcompose/logstash/plugin/ucss_mapping.json'
+DEBUG 2020-12-25 09:49:58,675 PID:73626 apibasicmiddleware debuglog 72 JSONAPI:register POST /ITMCP/v1/devices/6a6887d4-b195-7ceb-f1d3-4d66eaf164a9 127.0.0.1
+[BODY] {"deviceName": "test-ucss", "deviceID": "test-deviceID", "logSources": []}
+[DATA] {"status":0}
+
+DEBUG 2020-12-25 11:03:58,638 PID:73626 apibasicmiddleware debuglog 72 JSONAPI:check-in POST /ITMCP/v1/sessions 127.0.0.1
+[BODY] {"username": "itm-admin", "timestamp": 1608862067, "passwordHash": "NmUxZWU5Yzc1", "deviceType": 1, "connectionType": 0}
+[DATA] {"clientIP":"127.0.0.1","sessionID":"d0cd85a825aa9734ee41ca324036ff27d572e2d0","sessionTimeout":3600,"status":0}
+
+DEBUG 2020-12-25 11:03:58,652 PID:73626 apibasicmiddleware debuglog 72 JSONAPI:check-in POST /ITMCP/v1/sessions 127.0.0.1
+[BODY] {"username": "itm-admin", "timestamp": 1608865432, "passwordHash": "MDAyZjJiM2U5", "deviceType": 1, "connectionType": 0}
+[DATA] {"clientIP":"127.0.0.1","sessionID":"9886956c4f317c20ae5f3e1213a42542172b3120","sessionTimeout":3600,"status":0}
+
+INFO 2020-12-25 11:04:02,136 PID:73626 viewsfuncs notify_zodiac 134 Receive XMLRPC message result is None.
+ERROR 2020-12-25 11:04:02,188 PID:73626 viewsfuncs device_iptables_mapping 66 Device iptables set and ucss mapping failed.
+Traceback (most recent call last):
+  File "/home/ubuntu/workspace/skyguard/itpserver/bean/itm/viewsfuncs.py", line 63, in device_iptables_mapping
+    with open(config.UCSS_MAPPING, "w") as jf:
+IOError: [Errno 2] No such file or directory: '/opt/skyguard/itpcompose/logstash/plugin/ucss_mapping.json'
+DEBUG 2020-12-25 11:04:02,194 PID:73626 apibasicmiddleware debuglog 72 JSONAPI:register POST /ITMCP/v1/devices/6a6887d4-b195-7ceb-f1d3-4d66eaf164a9 127.0.0.1
+[BODY] {"deviceName": "test-ucss", "deviceID": "test-deviceID", "logSources": []}
+[DATA] {"status":0}
+
+INFO 2020-12-25 11:04:32,271 PID:73626 views005 get_df 127 xrs:ers size:241 ,if size is 0, pass error.
+DEBUG 2020-12-25 11:04:34,120 PID:73626 apibasicmiddleware debuglog 72 JSONAPI:x-scores GET /ITMCP/v1/devices/6a6887d4-b195-7ceb-f1d3-4d66eaf164a9/scores/ersScores 127.0.0.1
+[DATA] {'user_size': 0}
+
+DEBUG 2020-12-25 19:11:55,222 PID:112540 apibasicmiddleware debuglog 72 JSONAPI:check-in POST /ITMCP/v1/sessions 127.0.0.1
+[BODY] {"username": "itm-admin", "timestamp": 1608894714, "passwordHash": "NTZiNzljNWY3", "deviceType": 1, "connectionType": 0}
+[DATA] {"clientIP":"127.0.0.1","sessionID":"1e3c3a397b319acb38ed1a714f6ad14a26baaa68","sessionTimeout":3600,"status":0}
+
+DEBUG 2020-12-25 19:13:45,138 PID:112698 apibasicmiddleware debuglog 72 JSONAPI:check-in POST /ITMCP/v1/sessions 127.0.0.1
+[BODY] {"username": "itm-admin", "timestamp": 1608894824, "passwordHash": "NmJhMGI3YzY1", "deviceType": 1, "connectionType": 0}
+[DATA] {"clientIP":"127.0.0.1","sessionID":"4b4d3b05cdd6bdb7fb274af38e90f9c78bed07cb","sessionTimeout":3600,"status":0}
+

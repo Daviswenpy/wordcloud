@@ -1,0 +1,27 @@
+SkyGuard Software End User License Agreement (EULA)
+
+SkyGuard Unified Content Security (UCS) Software series
+End User License Agreement (EULA)
+
+Copyright Statements
+This software is protected under Chinese Copyright Laws and provisions in international treaties. Unauthorized reproduction and distribution of this software or any part of it is liable to prosecution. It will be prosecuted according to criminal as well as civil law and may result in severe punishment and/or damage claims.
+If you install, copy, or use the software in any manner, you are deemed as acknowledged and consent of the following agreement, and at the same time as a "User" you are deemed as having signed the following Software License Agreement (SLA) with the software "Provider" Beijing SkyGuard Network Security Technologies LLC (Hereinafter as SkyGuard).
+If you disagree with any items in the following agreement, you have to interrupt the installation to avoid any damage claims. 
+----------------------
+Software License Agreement
+If you obtained a copy of this software from SkyGuard legally, you are entitled of the following rights: 
+1.RIGHTS TO USE THE SOFTWARE
+You are entitled to install the software on a computer and use the software within your business range to achieve its maximum functionalities. 
+2.TECHNICAL SUPPORT
+You are entitled to receive full technical support service from SkyGuard. You are authorized to request SkyGuard for an answer to any questions and for troubleshooting assistance on any issues you encountered when you install and operate the software. 
+3.UPGRADE
+Based on needs, you are granted of rights to use all versions of the software. SkyGuard reserves the rights to amend the SLA, you may be charged for upgrading to a future release. 
+4.GENERAL LIMITATIONS
+Your rights to use the software is only limited to functional level. You are prohibited of any modification, reverse-programming, decompiling and disassembling of the software. Any add-on function development and derivative development based on the software are forbidden as well. If the software has to be modified for applicability or for any other reasons, you must provide a written proposal to SkyGuard, SkyGuard shall modify the software afterwards. 
+5.DO NOT COPY
+Except for legal usage or backup purposes, you are prohibited of copying all or any part of the software without acknowledging SkyGuard. 
+6.LIMITED USAGE
+Your rights to use the software is only limited to you and/or your company. Without a written agreement from SkyGuard, you are prohibited to provide all or any part of the software or its copy to any third parties through transferring, licensing, letting, mortgage-leasing, gifting or any other approaches, no matter for commercial benefits or not. 
+7.OTHERS
+Any uncovered affairs shall be settled in other bilateral agreements and causes. This SLA applies to relevant laws of the People's Republic of China. 
+-----------------------
