@@ -1,0 +1,17 @@
+[Unit]
+Description=ITP WebServer
+After=syslog.target
+
+[Service]
+ExecStart=/usr/bin/uwsgi --ini /opt/skyguard/itpserver/itmapi_uwsgi.ini 
+RuntimeDirectory=/opt/skyguard/itpserver/
+WorkingDirectory=/opt/skyguard/itpserver/
+Restart=always
+KillSignal=SIGQUIT
+Type=notify
+StandardError=syslog
+NotifyAccess=all
+PIDFile=/var/run/itpserver.pid
+
+[Install]
+WantedBy=multi-user.target

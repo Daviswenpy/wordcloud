@@ -1,0 +1,31 @@
+pyyaml
+pytz==2017.2
+Django==1.11.5
+redis==2.10.6
+django-celery==3.2.1
+requests==2.18.4
+kombu==3.0.37
+celery==3.1.25
+billiard==3.5.0.3
+amqp==1.4.9
+anyjson==0.3.3
+uwsgi==2.0.15
+pandas==0.22.0
+elasticsearch==5.4.0
+ipaddress
+pynliner
+
+# if need flower (provide celery views) install from bottom to top
+flower==0.9.2
+tornado==4.5.2
+backports.ssl-match-hostname==3.5.0.1
+singledispatch==3.4.0.3
+six==1.5.2
+certifi==2017.7.27.1
+backports-abc==0.5
+babel==2.5.1
+futures==3.1.1
+
+# uwsgi install should be careful
+# sudo apt-get install libssl-dev
+# pip install uwsgi

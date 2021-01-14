@@ -1,0 +1,15 @@
+Source: itpserver
+Section: unknown
+Priority: optional
+Maintainer: skyguard <cloud-dev@skyguard.com.cn>
+Build-Depends: debhelper (>=9)
+Standards-Version: 3.9.6
+Homepage: <insert the upstream URL, if relevant>
+#Vcs-Git: git://anonscm.debian.org/collab-maint/itpserver.git
+#Vcs-Browser: https://anonscm.debian.org/cgit/collab-maint/itpserver.git
+
+Package: itpserver
+Architecture: any
+Depends: python, python-django (=1.11.5), python-celery, python-redis, python-elasticsearch (=6.3.1),  python-django-celery, python-uwsgi, python-pyyaml, python-crontab, libpython-dev, python-pkg-resources, python-netaddr, python-openssl, libssl-dev, python-pandas, python-numpy (=1.10.1), conntrack, curl, python-requests, python-ipy, python-pycparser, python-cffi, python-cryptography, python-hiredis, python-django-redis
+Description: <insert up to 60 chars description>
+ <insert long description, indented with spaces>

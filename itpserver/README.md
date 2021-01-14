@@ -1,0 +1,1 @@
+![CI](http://git-cloud.skyguardmis.com/itp/itpserver/badges/master/pipeline.svg)

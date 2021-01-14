@@ -1,0 +1,168 @@
+DEBUG 2020-12-22 16:44:51,185 PID:64947 apibasicmiddleware debuglog 72 JSONAPI:check-in POST /ITMCP/v1/sessions 127.0.0.1
+[BODY] {"username": "itm-admin", "timestamp": 1608626690, "passwordHash": "MzhiZDI5N2Iy", "deviceType": 1, "connectionType": 0}
+[DATA] {"clientIP":"127.0.0.1","sessionID":"c6291cd707405ab0e321cade3626574b77dff320","sessionTimeout":3600,"status":0}
+
+INFO 2020-12-22 16:44:51,919 PID:64947 apifuncsmiddleware __init__ 47 api:USDC body:{"timestamp": 1608616800, "user": "e977aaaf-71f6-5819-bb13-a6e4d9ad2fc3", "pageSize": 1}
+ERROR 2020-12-22 16:44:53,409 PID:64947 viewsfuncs006 get_anomaly_forensics 139 1608616800 6a6887d4-b195-7ceb-f1d3-4d66eaf164a9 c864326e-4727-58b1-af78-61013dfec08f e977aaaf-71f6-5819-bb13-a6e4d9ad2fc3 1
+Traceback (most recent call last):
+  File "/home/ubuntu/workspace/skyguard/itpserver/bean/itm/viewsfuncs006.py", line 121, in get_anomaly_forensics
+    graphs = v["forensics"]["graphs"]
+KeyError: 'graphs'
+ERROR 2020-12-22 16:44:53,559 PID:64947 viewsfuncs006 get_anomaly_forensics 139 1608616800 6a6887d4-b195-7ceb-f1d3-4d66eaf164a9 99305369-0a1d-50ad-ad43-76cb5659270c e977aaaf-71f6-5819-bb13-a6e4d9ad2fc3 1
+Traceback (most recent call last):
+  File "/home/ubuntu/workspace/skyguard/itpserver/bean/itm/viewsfuncs006.py", line 122, in get_anomaly_forensics
+    _graphs = copy.deepcopy(graphs)
+UnboundLocalError: local variable 'graphs' referenced before assignment
+ERROR 2020-12-22 16:44:53,690 PID:64947 viewsfuncs006 get_anomaly_forensics 139 1608616800 6a6887d4-b195-7ceb-f1d3-4d66eaf164a9 607c3ea6-86d0-5613-8540-d032bfef0e27 e977aaaf-71f6-5819-bb13-a6e4d9ad2fc3 1
+Traceback (most recent call last):
+  File "/home/ubuntu/workspace/skyguard/itpserver/bean/itm/viewsfuncs006.py", line 122, in get_anomaly_forensics
+    _graphs = copy.deepcopy(graphs)
+UnboundLocalError: local variable 'graphs' referenced before assignment
+ERROR 2020-12-22 16:44:53,832 PID:64947 viewsfuncs006 get_anomaly_forensics 139 1608616800 6a6887d4-b195-7ceb-f1d3-4d66eaf164a9 c7cdafac-c593-52bb-a56b-538e11d5da86 e977aaaf-71f6-5819-bb13-a6e4d9ad2fc3 1
+Traceback (most recent call last):
+  File "/home/ubuntu/workspace/skyguard/itpserver/bean/itm/viewsfuncs006.py", line 122, in get_anomaly_forensics
+    _graphs = copy.deepcopy(graphs)
+UnboundLocalError: local variable 'graphs' referenced before assignment
+ERROR 2020-12-22 16:44:53,963 PID:64947 viewsfuncs006 get_anomaly_forensics 139 1608616800 6a6887d4-b195-7ceb-f1d3-4d66eaf164a9 367d60e9-5e32-5e37-875a-07f4eb6b4e62 e977aaaf-71f6-5819-bb13-a6e4d9ad2fc3 1
+Traceback (most recent call last):
+  File "/home/ubuntu/workspace/skyguard/itpserver/bean/itm/viewsfuncs006.py", line 122, in get_anomaly_forensics
+    _graphs = copy.deepcopy(graphs)
+UnboundLocalError: local variable 'graphs' referenced before assignment
+DEBUG 2020-12-22 16:44:53,965 PID:64947 apibasicmiddleware debuglog 72 JSONAPI:xrs-forensics POST /ITMCP/v1/devices/6a6887d4-b195-7ceb-f1d3-4d66eaf164a9/forensics/ers/model/85c01018-d507-4e57-958e-6426aac08d8c 127.0.0.1
+[BODY] {"timestamp": 1608616800, "user": "eptest111111\\itptest1", "pageSize": 1}
+[DATA] {"85c01018-d507-4e57-958e-6426aac08d8c":{"displayName":{"en":"Compromised Accout","zh":"失陷账号泄密风险"},"description":{"en":"Detecting the behaviors following the pattern of Compromised Accout","zh":"失陷账号泄密风险"},"modelVersion":2.1,"modelParameters":["c864326e-4727-58b1-af78-61013dfec08f","99305369-0a1d-50ad-ad43-76cb5659270c","607c3ea6-86d0-5613-8540-d032bfef0e27","c7cdafac-c593-52bb-a56b-538e11d5da86","367d60e9-5e32-5e37-875a-07f4eb6b4e62"],"threat_level":4,"type":"built-in"},"status":0}
+
+DEBUG 2020-12-22 16:45:10,062 PID:64947 apibasicmiddleware debuglog 72 JSONAPI:check-in POST /ITMCP/v1/sessions 127.0.0.1
+[BODY] {"username": "itm-admin", "timestamp": 1608626709, "passwordHash": "OTU3NTZkOGU5", "deviceType": 1, "connectionType": 0}
+[DATA] {"clientIP":"127.0.0.1","sessionID":"ed6905066b6f9d843d3550b9a484da257a464e05","sessionTimeout":3600,"status":0}
+
+INFO 2020-12-22 16:45:12,587 PID:64947 viewsfuncs notify_zodiac 134 Receive XMLRPC message result is None.
+ERROR 2020-12-22 16:45:12,675 PID:64947 viewsfuncs device_iptables_mapping 66 Device iptables set and ucss mapping failed.
+Traceback (most recent call last):
+  File "/home/ubuntu/workspace/skyguard/itpserver/bean/itm/viewsfuncs.py", line 63, in device_iptables_mapping
+    with open(config.UCSS_MAPPING, "w") as jf:
+IOError: [Errno 2] No such file or directory: '/opt/skyguard/itpcompose/logstash/plugin/ucss_mapping.json'
+DEBUG 2020-12-22 16:45:12,678 PID:64947 apibasicmiddleware debuglog 72 JSONAPI:register POST /ITMCP/v1/devices/6a6887d4-b195-7ceb-f1d3-4d66eaf164a9 127.0.0.1
+[BODY] {"deviceName": "test-ucss", "deviceID": "test-deviceID", "logSources": []}
+[DATA] {"status":0}
+
+INFO 2020-12-22 16:45:12,880 PID:64947 apifuncsmiddleware __init__ 47 api:USDC body:{"timestamp": 1608220800, "user": "22e4b124-ebaa-d84e-b2b5-27b278196225", "pageSize": 1}
+DEBUG 2020-12-22 16:45:14,146 PID:64947 apibasicmiddleware debuglog 72 JSONAPI:xrs-forensics POST /ITMCP/v1/devices/6a6887d4-b195-7ceb-f1d3-4d66eaf164a9/forensics/ers/model/85c01018-d507-4e57-958e-6426aac08d8c 127.0.0.1
+[BODY] {"timestamp": 1608220800, "user": "skyguardmis.com\\yuhongyan", "pageSize": 1}
+[DATA] {"85c01018-d507-4e57-958e-6426aac08d8c":{"displayName":{"en":"Compromised Accout","zh":"失陷账号泄密风险"},"description":{"en":"Detecting the behaviors following the pattern of Compromised Accout","zh":"失陷账号泄密风险"},"modelVersion":2.1,"modelParameters":["c864326e-4727-58b1-af78-61013dfec08f","99305369-0a1d-50ad-ad43-76cb5659270c","607c3ea6-86d0-5613-8540-d032bfef0e27","c7cdafac-c593-52bb-a56b-538e11d5da86","367d60e9-5e32-5e37-875a-07f4eb6b4e62"],"threat_level":4,"type":"built-in"},"status":0}
+
+DEBUG 2020-12-22 16:45:57,845 PID:64947 apibasicmiddleware debuglog 72 JSONAPI:check-in POST /ITMCP/v1/sessions 127.0.0.1
+[BODY] {"username": "itm-admin", "timestamp": 1608626757, "passwordHash": "MDdkOGI4MTY1", "deviceType": 1, "connectionType": 0}
+[DATA] {"clientIP":"127.0.0.1","sessionID":"904d05ec80873f06c9c11b97b7bf4a7dee9a9106","sessionTimeout":3600,"status":0}
+
+INFO 2020-12-22 16:46:00,327 PID:64947 viewsfuncs notify_zodiac 134 Receive XMLRPC message result is None.
+ERROR 2020-12-22 16:46:00,354 PID:64947 viewsfuncs device_iptables_mapping 66 Device iptables set and ucss mapping failed.
+Traceback (most recent call last):
+  File "/home/ubuntu/workspace/skyguard/itpserver/bean/itm/viewsfuncs.py", line 63, in device_iptables_mapping
+    with open(config.UCSS_MAPPING, "w") as jf:
+IOError: [Errno 2] No such file or directory: '/opt/skyguard/itpcompose/logstash/plugin/ucss_mapping.json'
+DEBUG 2020-12-22 16:46:00,357 PID:64947 apibasicmiddleware debuglog 72 JSONAPI:register POST /ITMCP/v1/devices/6a6887d4-b195-7ceb-f1d3-4d66eaf164a9 127.0.0.1
+[BODY] {"deviceName": "test-ucss", "deviceID": "test-deviceID", "logSources": []}
+[DATA] {"status":0}
+
+INFO 2020-12-22 16:46:00,559 PID:64947 apifuncsmiddleware __init__ 47 api:USDC body:{"timestamp": 1608616800, "user": "e977aaaf-71f6-5819-bb13-a6e4d9ad2fc3", "pageSize": 1}
+ERROR 2020-12-22 16:46:01,614 PID:64947 viewsfuncs006 get_anomaly_forensics 139 1608616800 6a6887d4-b195-7ceb-f1d3-4d66eaf164a9 c864326e-4727-58b1-af78-61013dfec08f e977aaaf-71f6-5819-bb13-a6e4d9ad2fc3 1
+Traceback (most recent call last):
+  File "/home/ubuntu/workspace/skyguard/itpserver/bean/itm/viewsfuncs006.py", line 121, in get_anomaly_forensics
+    graphs = v["forensics"]["graphs"]
+KeyError: 'graphs'
+ERROR 2020-12-22 16:46:01,746 PID:64947 viewsfuncs006 get_anomaly_forensics 139 1608616800 6a6887d4-b195-7ceb-f1d3-4d66eaf164a9 99305369-0a1d-50ad-ad43-76cb5659270c e977aaaf-71f6-5819-bb13-a6e4d9ad2fc3 1
+Traceback (most recent call last):
+  File "/home/ubuntu/workspace/skyguard/itpserver/bean/itm/viewsfuncs006.py", line 122, in get_anomaly_forensics
+    _graphs = copy.deepcopy(graphs)
+UnboundLocalError: local variable 'graphs' referenced before assignment
+ERROR 2020-12-22 16:46:01,873 PID:64947 viewsfuncs006 get_anomaly_forensics 139 1608616800 6a6887d4-b195-7ceb-f1d3-4d66eaf164a9 607c3ea6-86d0-5613-8540-d032bfef0e27 e977aaaf-71f6-5819-bb13-a6e4d9ad2fc3 1
+Traceback (most recent call last):
+  File "/home/ubuntu/workspace/skyguard/itpserver/bean/itm/viewsfuncs006.py", line 122, in get_anomaly_forensics
+    _graphs = copy.deepcopy(graphs)
+UnboundLocalError: local variable 'graphs' referenced before assignment
+ERROR 2020-12-22 16:46:02,001 PID:64947 viewsfuncs006 get_anomaly_forensics 139 1608616800 6a6887d4-b195-7ceb-f1d3-4d66eaf164a9 c7cdafac-c593-52bb-a56b-538e11d5da86 e977aaaf-71f6-5819-bb13-a6e4d9ad2fc3 1
+Traceback (most recent call last):
+  File "/home/ubuntu/workspace/skyguard/itpserver/bean/itm/viewsfuncs006.py", line 122, in get_anomaly_forensics
+    _graphs = copy.deepcopy(graphs)
+UnboundLocalError: local variable 'graphs' referenced before assignment
+ERROR 2020-12-22 16:46:02,128 PID:64947 viewsfuncs006 get_anomaly_forensics 139 1608616800 6a6887d4-b195-7ceb-f1d3-4d66eaf164a9 367d60e9-5e32-5e37-875a-07f4eb6b4e62 e977aaaf-71f6-5819-bb13-a6e4d9ad2fc3 1
+Traceback (most recent call last):
+  File "/home/ubuntu/workspace/skyguard/itpserver/bean/itm/viewsfuncs006.py", line 122, in get_anomaly_forensics
+    _graphs = copy.deepcopy(graphs)
+UnboundLocalError: local variable 'graphs' referenced before assignment
+DEBUG 2020-12-22 16:46:02,130 PID:64947 apibasicmiddleware debuglog 72 JSONAPI:xrs-forensics POST /ITMCP/v1/devices/6a6887d4-b195-7ceb-f1d3-4d66eaf164a9/forensics/ers/model/85c01018-d507-4e57-958e-6426aac08d8c 127.0.0.1
+[BODY] {"timestamp": 1608616800, "user": "eptest111111\\itptest1", "pageSize": 1}
+[DATA] {"85c01018-d507-4e57-958e-6426aac08d8c":{"displayName":{"en":"Compromised Accout","zh":"失陷账号泄密风险"},"description":{"en":"Detecting the behaviors following the pattern of Compromised Accout","zh":"失陷账号泄密风险"},"modelVersion":2.1,"modelParameters":["c864326e-4727-58b1-af78-61013dfec08f","99305369-0a1d-50ad-ad43-76cb5659270c","607c3ea6-86d0-5613-8540-d032bfef0e27","c7cdafac-c593-52bb-a56b-538e11d5da86","367d60e9-5e32-5e37-875a-07f4eb6b4e62"],"threat_level":4,"type":"built-in"},"status":0}
+
+DEBUG 2020-12-22 16:48:10,757 PID:64947 apibasicmiddleware debuglog 72 JSONAPI:check-in POST /ITMCP/v1/sessions 127.0.0.1
+[BODY] {"username": "itm-admin", "timestamp": 1608626890, "passwordHash": "Y2YxYTE5OTA0", "deviceType": 1, "connectionType": 0}
+[DATA] {"clientIP":"127.0.0.1","sessionID":"48d94bc3f98bbc6c3060b9e69185eab6ba362b5a","sessionTimeout":3600,"status":0}
+
+INFO 2020-12-22 16:48:13,421 PID:64947 viewsfuncs notify_zodiac 134 Receive XMLRPC message result is None.
+ERROR 2020-12-22 16:48:13,450 PID:64947 viewsfuncs device_iptables_mapping 66 Device iptables set and ucss mapping failed.
+Traceback (most recent call last):
+  File "/home/ubuntu/workspace/skyguard/itpserver/bean/itm/viewsfuncs.py", line 63, in device_iptables_mapping
+    with open(config.UCSS_MAPPING, "w") as jf:
+IOError: [Errno 2] No such file or directory: '/opt/skyguard/itpcompose/logstash/plugin/ucss_mapping.json'
+DEBUG 2020-12-22 16:48:13,453 PID:64947 apibasicmiddleware debuglog 72 JSONAPI:register POST /ITMCP/v1/devices/6a6887d4-b195-7ceb-f1d3-4d66eaf164a9 127.0.0.1
+[BODY] {"deviceName": "test-ucss", "deviceID": "test-deviceID", "logSources": []}
+[DATA] {"status":0}
+
+ERROR 2020-12-22 16:49:02,821 PID:64947 exceptions api_exception_handler 91 Framework_exception:<class 'itm.exceptions.APIDataNotFound'> str:username:eptest111112\itptest1 parase error with user_list:[] No traceback.
+DEBUG 2020-12-22 16:51:02,035 PID:64947 apibasicmiddleware debuglog 72 JSONAPI:xrs-forensics POST /ITMCP/v1/devices/6a6887d4-b195-7ceb-f1d3-4d66eaf164a9/forensics/ers/model/85c01018-d507-4e57-958e-6426aac08d8c 127.0.0.1
+[BODY] {"timestamp": 1608616800, "user": "eptest111112\\itptest1", "pageSize": 1}
+[DATA] {"status":1,"detail":"username:eptest111112\\itptest1 parase error with user_list:[]"}
+
+DEBUG 2020-12-22 17:01:21,404 PID:64947 apibasicmiddleware debuglog 72 JSONAPI:check-in POST /ITMCP/v1/sessions 127.0.0.1
+[BODY] {"username": "itm-admin", "timestamp": 1608627681, "passwordHash": "NWYyZTEwMDlj", "deviceType": 1, "connectionType": 0}
+[DATA] {"clientIP":"127.0.0.1","sessionID":"caae54f6a4f77677a5b55ddd836d2f991245a185","sessionTimeout":3600,"status":0}
+
+INFO 2020-12-22 17:01:23,952 PID:64947 viewsfuncs notify_zodiac 134 Receive XMLRPC message result is None.
+ERROR 2020-12-22 17:01:24,075 PID:64947 viewsfuncs device_iptables_mapping 66 Device iptables set and ucss mapping failed.
+Traceback (most recent call last):
+  File "/home/ubuntu/workspace/skyguard/itpserver/bean/itm/viewsfuncs.py", line 63, in device_iptables_mapping
+    with open(config.UCSS_MAPPING, "w") as jf:
+IOError: [Errno 2] No such file or directory: '/opt/skyguard/itpcompose/logstash/plugin/ucss_mapping.json'
+DEBUG 2020-12-22 17:01:24,077 PID:64947 apibasicmiddleware debuglog 72 JSONAPI:register POST /ITMCP/v1/devices/6a6887d4-b195-7ceb-f1d3-4d66eaf164a9 127.0.0.1
+[BODY] {"deviceName": "test-ucss", "deviceID": "test-deviceID", "logSources": []}
+[DATA] {"status":0}
+
+DEBUG 2020-12-22 17:03:01,731 PID:66959 apibasicmiddleware debuglog 72 JSONAPI:check-in POST /ITMCP/v1/sessions 127.0.0.1
+[BODY] {"username": "itm-admin", "timestamp": 1608627781, "passwordHash": "NWNiNjY0ZjYy", "deviceType": 1, "connectionType": 0}
+[DATA] {"clientIP":"127.0.0.1","sessionID":"5a6f0ed828a2b6e6f84a73f1ba3ca95f41823ecd","sessionTimeout":3600,"status":0}
+
+INFO 2020-12-22 17:03:04,383 PID:66959 viewsfuncs notify_zodiac 134 Receive XMLRPC message result is None.
+ERROR 2020-12-22 17:03:04,675 PID:66959 viewsfuncs device_iptables_mapping 66 Device iptables set and ucss mapping failed.
+Traceback (most recent call last):
+  File "/home/ubuntu/workspace/skyguard/itpserver/bean/itm/viewsfuncs.py", line 63, in device_iptables_mapping
+    with open(config.UCSS_MAPPING, "w") as jf:
+IOError: [Errno 2] No such file or directory: '/opt/skyguard/itpcompose/logstash/plugin/ucss_mapping.json'
+DEBUG 2020-12-22 17:03:04,686 PID:66959 apibasicmiddleware debuglog 72 JSONAPI:register POST /ITMCP/v1/devices/6a6887d4-b195-7ceb-f1d3-4d66eaf164a9 127.0.0.1
+[BODY] {"deviceName": "test-ucss", "deviceID": "test-deviceID", "logSources": []}
+[DATA] {"status":0}
+
+ERROR 2020-12-22 17:07:42,848 PID:66959 exceptions api_exception_handler 91 Framework_exception:<class 'itm.exceptions.APIDataNotFound'> str:username:admin-pcx\admin parase error with user_list:[] No traceback.
+DEBUG 2020-12-22 17:07:42,850 PID:66959 apibasicmiddleware debuglog 72 JSONAPI:xrs-forensics POST /ITMCP/v1/devices/6a6887d4-b195-7ceb-f1d3-4d66eaf164a9/forensics/ers/model/85c01018-d507-4e57-958e-6426aac08d8c 127.0.0.1
+[BODY] {"timestamp": 1608616800, "user": "admin-pcx\\admin", "pageSize": 1}
+[DATA] {"status":1,"detail":"username:admin-pcx\\admin parase error with user_list:[]"}
+
+DEBUG 2020-12-22 17:09:35,590 PID:66959 apibasicmiddleware debuglog 72 JSONAPI:check-in POST /ITMCP/v1/sessions 127.0.0.1
+[BODY] {"username": "itm-admin", "timestamp": 1608628175, "passwordHash": "MmEyZDAzYjM5", "deviceType": 1, "connectionType": 0}
+[DATA] {"clientIP":"127.0.0.1","sessionID":"b6f7f2ef0ba167fc999c0056f2457510296f18eb","sessionTimeout":3600,"status":0}
+
+INFO 2020-12-22 17:09:39,121 PID:66959 viewsfuncs notify_zodiac 134 Receive XMLRPC message result is None.
+ERROR 2020-12-22 17:09:39,152 PID:66959 viewsfuncs device_iptables_mapping 66 Device iptables set and ucss mapping failed.
+Traceback (most recent call last):
+  File "/home/ubuntu/workspace/skyguard/itpserver/bean/itm/viewsfuncs.py", line 63, in device_iptables_mapping
+    with open(config.UCSS_MAPPING, "w") as jf:
+IOError: [Errno 2] No such file or directory: '/opt/skyguard/itpcompose/logstash/plugin/ucss_mapping.json'
+DEBUG 2020-12-22 17:09:39,154 PID:66959 apibasicmiddleware debuglog 72 JSONAPI:register POST /ITMCP/v1/devices/6a6887d4-b195-7ceb-f1d3-4d66eaf164a9 127.0.0.1
+[BODY] {"deviceName": "test-ucss", "deviceID": "test-deviceID", "logSources": []}
+[DATA] {"status":0}
+
+ERROR 2020-12-22 17:21:30,073 PID:66959 exceptions api_exception_handler 91 Framework_exception:<class 'itm.exceptions.APIDataNotFound'> str:username:admin-pcx\admin parase error with user_list:[] No traceback.
+DEBUG 2020-12-22 17:21:30,085 PID:66959 apibasicmiddleware debuglog 72 JSONAPI:xrs-forensics POST /ITMCP/v1/devices/6a6887d4-b195-7ceb-f1d3-4d66eaf164a9/forensics/ers/model/85c01018-d507-4e57-958e-6426aac08d8c 127.0.0.1
+[BODY] {"timestamp": 1608616800, "user": "admin-pcx\\admin", "pageSize": 1}
+[DATA] {"status":1,"detail":"username:admin-pcx\\admin parase error with user_list:[]"}
+

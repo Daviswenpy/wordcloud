@@ -1,0 +1,3982 @@
+{
+	"id": "9df87b97-fbf9-45d7-86ea-cec41fc20ded",
+	"name": "ITP test",
+	"allTests": [],
+	"timestamp": "2019-04-12T03:32:03.714Z",
+	"collection_id": "e4b70b9c-0c6a-4db0-9c35-aea8f5065308",
+	"folder_id": 0,
+	"target_type": "collection",
+	"environment_id": "6f9b1cfa-94ed-44ac-83bc-5ea0610df0b0",
+	"data": [],
+	"delay": 0,
+	"count": 1,
+	"collection": {
+		"id": "e4b70b9c-0c6a-4db0-9c35-aea8f5065308",
+		"name": "ITP test",
+		"description": "# Introduction\nITPService doc and test\n\n# Overview\nDoc info and auto test with views file  \nviews001: Authentification  \nviews002: Device management  \nviews003: Upload and download files  \nviews004: Models, mrs task and eas anomaly management  \nviews005: Risklevel and data info  \nviews006: Xrs forensics, eas report and eas summary\n\n# Authentication\nBasic authentication using ip and token \n\n# Error Codes\nstatus: 1, \"Basic error  \nstatus: 2, \"Timestamp error  \nstatus: 3, \"Authentication failed  \nstatus: 4, \"Not rigister  \nstatus: 5, \"No file upload  \nstatus: 6, \"Data not found  \nstatus: 7, \"Elasticsearch Connection refused  \nstatus: 8, \"Elasticsearch query error  \nstatus: 9, \"Object error  \nstatus: 10, \"Password error  \nstatus: 99, Unknown error or Name Error  \n\n# Rate limit\nToken expiration time is 3600 seconds\n\n# Usages\n1.do check in requests(in views001.py)  \n2.do register device (deviceID:postman-test, if need)  \n3.admin debug info, use Headers(ip:admin-ip)",
+		"auth": null,
+		"events": null,
+		"variables": null,
+		"order": [],
+		"folders_order": [
+			"8618ce8d-be85-496e-aa1f-80843823011b",
+			"43c2f1d4-03ad-441c-b16f-85047d12bab5",
+			"7788279c-14cc-48dc-9a0a-2c734b3827a4",
+			"8648f651-e207-4b66-8604-afcdcb5c0538",
+			"11501844-d613-4b15-b94c-cb82c2b29bf9",
+			"5ec4b1a7-cb7a-43a9-b7ff-daa6bad75fb1"
+		],
+		"owner": "4457145",
+		"favorite": false,
+		"isFavorite": true,
+		"type": "collection",
+		"depth": 0
+	},
+	"folder": null,
+	"environment": null,
+	"globals": [
+		{
+			"value": "",
+			"key": "us",
+			"enabled": true
+		},
+		{
+			"value": "",
+			"key": "sessionID",
+			"enabled": true
+		},
+		{
+			"value": "",
+			"key": "ip",
+			"enabled": true
+		},
+		{
+			"value": "",
+			"key": "admin-ip",
+			"enabled": true
+		},
+		{
+			"value": "",
+			"key": "dev-deviceID",
+			"enabled": true
+		},
+		{
+			"value": "",
+			"key": "test-deviceID",
+			"enabled": true
+		}
+	],
+	"results": [
+		{
+			"name": "1.1.1check in",
+			"id": "f7211760-e2e3-48c6-81a2-867145aa910e",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/sessions",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"52"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "52",
+			"totalRequestTime": "52",
+			"iterationResults": {}
+		},
+		{
+			"name": "1.1.2check in with invaild username or password",
+			"id": "927ac89c-6f24-4af7-8cba-1cfaf002d179",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/sessions",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"18"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "18",
+			"totalRequestTime": "18",
+			"iterationResults": {}
+		},
+		{
+			"name": "1.1.3check in with invaild timestamp",
+			"id": "46094551-d9e1-4a64-8597-bd495c8dc27d",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/sessions",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"13"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "13",
+			"totalRequestTime": "13",
+			"iterationResults": {}
+		},
+		{
+			"name": "1.2.1keep live",
+			"id": "89eeea65-c688-4e88-a4b6-5f77bb9a6dba",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/sessions/ef39ca6a55a7e2020fe59ba9ff2ecaa643922556",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"90"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "90",
+			"totalRequestTime": "90",
+			"iterationResults": {}
+		},
+		{
+			"name": "1.2.2check out",
+			"id": "61b340db-a49c-41df-833c-c67335e52143",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/sessions/ef39ca6a55a7e2020fe59ba9ff2ecaa643922556",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"25"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "25",
+			"totalRequestTime": "25",
+			"iterationResults": {}
+		},
+		{
+			"name": "1.2.3recheck in",
+			"id": "c0caa812-c64f-4653-807c-580e6d871c83",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/sessions",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"31"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "31",
+			"totalRequestTime": "31",
+			"iterationResults": {}
+		},
+		{
+			"name": "2.1.1register device",
+			"id": "a3928ace-c789-4603-9232-8c801f2b2a0a",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"2649"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "2649",
+			"totalRequestTime": "2649",
+			"iterationResults": {}
+		},
+		{
+			"name": "2.1.2re-register device",
+			"id": "5a3afe60-1738-4609-a33e-098f79b0baf9",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test1",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"2626"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "2626",
+			"totalRequestTime": "2626",
+			"iterationResults": {}
+		},
+		{
+			"name": "2.1.3disregister device",
+			"id": "699b81f9-76b4-4a44-a421-c571f6717974",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test1",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"2127"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "2127",
+			"totalRequestTime": "2127",
+			"iterationResults": {}
+		},
+		{
+			"name": "2.1.4disregister device with status 4",
+			"id": "e47b837c-780b-4690-99b1-f2b34259633e",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test1",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"13"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "13",
+			"totalRequestTime": "13",
+			"iterationResults": {}
+		},
+		{
+			"name": "2.2.1get configurations",
+			"id": "4ab9d9c5-a8e9-4b0f-88cd-0ed45b69af33",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/configurations",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"17"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "17",
+			"totalRequestTime": "17",
+			"iterationResults": {}
+		},
+		{
+			"name": "2.3.1update itmConfigs",
+			"id": "11d50304-9ee4-4167-b554-cc50eb470938",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/configurations/itmConfigs",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"2076"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "2076",
+			"totalRequestTime": "2076",
+			"iterationResults": {}
+		},
+		{
+			"name": "2.3.3update itmConfigs rollback",
+			"id": "6d245738-140f-4cef-869c-b6603405758f",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/configurations/itmConfigs",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"2088"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "2088",
+			"totalRequestTime": "2088",
+			"iterationResults": {}
+		},
+		{
+			"name": "2.4.1get conf-ars",
+			"id": "ce8550ee-8d9c-437d-87e7-9e754c10b3f9",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/configurations/itmConfigs/ars",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"17"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "17",
+			"totalRequestTime": "17",
+			"iterationResults": {}
+		},
+		{
+			"name": "2.4.2update conf-ars",
+			"id": "5cefa42a-b530-4aa4-a3f4-5ba57b1da15c",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/configurations/itmConfigs/ars",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"2066"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "2066",
+			"totalRequestTime": "2066",
+			"iterationResults": {}
+		},
+		{
+			"name": "2.4.3update conf-ars blacklist",
+			"id": "9ebf05d9-91c6-4606-8d1d-360a84e8c7a9",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/configurations/itmConfigs/ars/blacklists",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"2072"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "2072",
+			"totalRequestTime": "2072",
+			"iterationResults": {}
+		},
+		{
+			"name": "2.4.4get conf-ars blacklist",
+			"id": "e28b5668-dae0-4fcf-a8f5-1ee857b9540e",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/configurations/itmConfigs/ars/blacklists",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"17"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "17",
+			"totalRequestTime": "17",
+			"iterationResults": {}
+		},
+		{
+			"name": "2.4.5update conf-ars rollback",
+			"id": "b6c24d80-0871-4534-ad6b-255914f102dd",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/configurations/itmConfigs/ars",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"2077"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "2077",
+			"totalRequestTime": "2077",
+			"iterationResults": {}
+		},
+		{
+			"name": "2.4.6get conf-mrs",
+			"id": "453cac4c-ddb4-42f9-a028-c6afb5046fe9",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/configurations/itmConfigs/mrs",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"20"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "20",
+			"totalRequestTime": "20",
+			"iterationResults": {}
+		},
+		{
+			"name": "2.4.7update conf-mrs",
+			"id": "abd93b19-7406-47fa-b1c5-80423b959df6",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/configurations/itmConfigs/mrs",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"2073"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "2073",
+			"totalRequestTime": "2073",
+			"iterationResults": {}
+		},
+		{
+			"name": "2.4.8update conf-mrs blacklist",
+			"id": "d46d01b3-31a4-47d3-8df7-b97aba75b9af",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/configurations/itmConfigs/mrs/blacklists",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"2072"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "2072",
+			"totalRequestTime": "2072",
+			"iterationResults": {}
+		},
+		{
+			"name": "2.4.9get conf-mrs blacklist",
+			"id": "55597248-86fb-4e76-8f29-71f19b164364",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/configurations/itmConfigs/mrs/blacklists",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"16"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "16",
+			"totalRequestTime": "16",
+			"iterationResults": {}
+		},
+		{
+			"name": "2.4.10update conf-mrs rollback",
+			"id": "4ac2d496-f137-464b-9268-ef35c09dd0c6",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/configurations/itmConfigs/mrs",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"11583"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "11583",
+			"totalRequestTime": "11583",
+			"iterationResults": {}
+		},
+		{
+			"name": "2.4.11get conf-ers",
+			"id": "da875b57-67e8-48fa-8fbb-f8099bb3b3cb",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/configurations/itmConfigs/ers",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"18"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "18",
+			"totalRequestTime": "18",
+			"iterationResults": {}
+		},
+		{
+			"name": "2.4.12update conf-ers",
+			"id": "6e4c7829-511d-4df7-9b41-360995d8fef0",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/configurations/itmConfigs/ers",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"2091"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "2091",
+			"totalRequestTime": "2091",
+			"iterationResults": {}
+		},
+		{
+			"name": "2.4.13update conf-ers blacklist",
+			"id": "7971f685-8e9e-4a70-8b44-e5635b50b7e8",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/configurations/itmConfigs/ers/blacklists",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"2099"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "2099",
+			"totalRequestTime": "2099",
+			"iterationResults": {}
+		},
+		{
+			"name": "2.4.14get conf-ers blacklist",
+			"id": "2f1f09c2-2123-4cb2-94e1-a445e2d75a1e",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/configurations/itmConfigs/ers/blacklists",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"15"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "15",
+			"totalRequestTime": "15",
+			"iterationResults": {}
+		},
+		{
+			"name": "2.4.15update conf-ers rollback",
+			"id": "554fa49f-e3e1-477c-b2ab-e7e59dcadc3b",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/configurations/itmConfigs/ers",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"2084"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "2084",
+			"totalRequestTime": "2084",
+			"iterationResults": {}
+		},
+		{
+			"name": "2.4.16get conf-versions",
+			"id": "31ce968b-e4b0-482e-ac5f-6a6905ff590c",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/configurations/itmConfigs/versions",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"16"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "16",
+			"totalRequestTime": "16",
+			"iterationResults": {}
+		},
+		{
+			"name": "3.1.1upload files",
+			"id": "478b04ed-abf3-41ca-96ad-6848ea5d87bf",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/upload/files/",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"13"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "13",
+			"totalRequestTime": "13",
+			"iterationResults": {}
+		},
+		{
+			"name": "3.2.1download files",
+			"id": "a24885e2-c8c0-4412-a3de-ca8a6e961135",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/download/files/",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"11"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "11",
+			"totalRequestTime": "11",
+			"iterationResults": {}
+		},
+		{
+			"name": "3.2.2download files readme.txt",
+			"id": "886566aa-f292-4c2e-bb30-146586159e4c",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/download/files/readme.txt",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Check file": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check file": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"10"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Check file": true
+				}
+			],
+			"time": "10",
+			"totalRequestTime": "10",
+			"iterationResults": {}
+		},
+		{
+			"name": "4.1.1get ers models",
+			"id": "21ff4419-63f5-487f-905c-099052794ed5",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/PR1710G316050012/models/ers",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"68"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "68",
+			"totalRequestTime": "68",
+			"iterationResults": {}
+		},
+		{
+			"name": "4.1.2get ers models version",
+			"id": "a80f8517-94b4-4f73-bab9-b7463e738938",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/PR1710G316050012/models/ers/version",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"22"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "22",
+			"totalRequestTime": "22",
+			"iterationResults": {}
+		},
+		{
+			"name": "4.1.2upload custom er models",
+			"id": "948212b9-5022-4c20-bc85-cb3ddd3eb705",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/models/ers",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"30"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "30",
+			"totalRequestTime": "30",
+			"iterationResults": {}
+		},
+		{
+			"name": "4.1.3delete custom ers models",
+			"id": "7b4dc169-ea56-46f1-8344-5ee27b457ed8",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/models/ers",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"35"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "35",
+			"totalRequestTime": "35",
+			"iterationResults": {}
+		},
+		{
+			"name": "4.2.1get mrs tasks",
+			"id": "cf8e43b2-be27-4a7f-8daa-ab2f006dce66",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/tasks/mrs",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"17"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "17",
+			"totalRequestTime": "17",
+			"iterationResults": {}
+		},
+		{
+			"name": "4.2.2update mrs task status",
+			"id": "4da9ca28-38fc-403b-b41f-d3a1bf686727",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/tasks/mrs/9210b20b-7a11-804a-beec-7d59427cb53c",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"18"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "18",
+			"totalRequestTime": "18",
+			"iterationResults": {}
+		},
+		{
+			"name": "4.3.1get eas anomaly",
+			"id": "4f813152-e585-4c1c-8d62-0ee680e04a12",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/PR1710G316050012/anomalies/d4805d42-431d-4c59-b4b6-d28fb7735955",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"18"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "18",
+			"totalRequestTime": "18",
+			"iterationResults": {}
+		},
+		{
+			"name": "4.4.1get anomaly parameters",
+			"id": "46533ae4-4c3a-403e-8d1a-107139ffaebd",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/PR1710G316050012/eas/parameters",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"20"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "20",
+			"totalRequestTime": "20",
+			"iterationResults": {}
+		},
+		{
+			"name": "4.4.2update anomaly parameters",
+			"id": "453dc64f-753e-4ebe-a672-cc78c98e97da",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/PR1710G316050012/eas/parameters",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"21"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "21",
+			"totalRequestTime": "21",
+			"iterationResults": {}
+		},
+		{
+			"name": "5.1.1get all scores",
+			"id": "b8fcf046-deec-466d-be03-27b5193f5f67",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/PR1710G316050012/scores",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"155"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "155",
+			"totalRequestTime": "155",
+			"iterationResults": {}
+		},
+		{
+			"name": "5.1.2get mrs scores",
+			"id": "5d27623b-0b71-419b-92be-530e02ba0232",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/PR1710G316050012/scores/mrsScores",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"74"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "74",
+			"totalRequestTime": "74",
+			"iterationResults": {}
+		},
+		{
+			"name": "5.1.3get ars scores",
+			"id": "1ecf4a1c-7ef7-410f-b606-f3d689253781",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/PR1710G316050012/scores/arsScores",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"85"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "85",
+			"totalRequestTime": "85",
+			"iterationResults": {}
+		},
+		{
+			"name": "5.1.4get ers scores",
+			"id": "fe357a4b-9f7d-4cdb-82ee-f9006a6eecf6",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/PR1710G316050012/scores/ersScores",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"86"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "86",
+			"totalRequestTime": "86",
+			"iterationResults": {}
+		},
+		{
+			"name": "5.1.5get riskLevel scores",
+			"id": "06198139-4d36-444b-954f-1b534d47a0b1",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/PR1710G316050012/scores/riskLevel",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"69"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "69",
+			"totalRequestTime": "69",
+			"iterationResults": {}
+		},
+		{
+			"name": "5.1.6get scores weights",
+			"id": "bd3aa919-d281-45c8-897f-29628646e939",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/PR1710G316050012/scores/weights",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"10"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "10",
+			"totalRequestTime": "10",
+			"iterationResults": {}
+		},
+		{
+			"name": "5.2.1data info for threat",
+			"id": "5200ca3e-826c-4a1c-aead-4347cb3daffe",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/PR1710G316050012/data/info",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"11"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "11",
+			"totalRequestTime": "11",
+			"iterationResults": {}
+		},
+		{
+			"name": "6.1.1xrs forensics for all ers models",
+			"id": "18d4bd66-ddc2-4e47-abcc-46c8627b374d",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/PR1710G316050012/forensics/ers",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"309"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "309",
+			"totalRequestTime": "309",
+			"iterationResults": {}
+		},
+		{
+			"name": "6.1.2xrs forensics for ers model",
+			"id": "4ebaeb68-6345-40d9-9c79-1d3de8c13f75",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/PR1710G316050012/forensics/ers/model/badf93c0-12aa-4f68-abf2-aff067bf15ca",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"56"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "56",
+			"totalRequestTime": "56",
+			"iterationResults": {}
+		},
+		{
+			"name": "6.1.3xrs forensics for ers param",
+			"id": "b7cdf787-8dd8-4163-933e-dce5bee7ae29",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/PR1710G316050012/forensics/ers/param/2dbacf05-1cad-46dd-ad94-e0f7b971b79a",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"24"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "24",
+			"totalRequestTime": "24",
+			"iterationResults": {}
+		},
+		{
+			"name": "6.1.4xrs forensics for eas threat",
+			"id": "85717da6-166a-4990-8de8-a0b31cda25b5",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/PR1710G316050012/forensics/eas/threat/0ca37e75-246a-4beb-8e26-af6ad0c2604a",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"301"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "301",
+			"totalRequestTime": "301",
+			"iterationResults": {}
+		},
+		{
+			"name": "6.1.5xrs forensics for eas anomalyGroups",
+			"id": "6495564f-13aa-4b87-86ed-d930de33d905",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/PR1710G316050012/forensics/eas/anomalyGroup/a318e1e5-dbc5-40c9-900e-a59ca5d716ea",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"134"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "134",
+			"totalRequestTime": "134",
+			"iterationResults": {}
+		},
+		{
+			"name": "6.1.6xrs fiorensics for eas anomaly",
+			"id": "e0307ec9-3f21-4337-a9ed-3434f7b9fc06",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/PR1710G316050012/forensics/eas/anomaly/b87aef5c-f84e-4dc6-93f6-8c73ead9344a",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"33"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "33",
+			"totalRequestTime": "33",
+			"iterationResults": {}
+		},
+		{
+			"name": "6.2.1 ars all forensics",
+			"id": "56ea183d-15e0-4091-b36b-0ffc1bcc24f8",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/PR1710G316050012/forensics/ars",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"48"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "48",
+			"totalRequestTime": "48",
+			"iterationResults": {}
+		},
+		{
+			"name": "6.2.2ars protocols forensics",
+			"id": "51f61b6a-3b08-4858-9b80-135488233202",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/PR1710G316050012/forensics/ars/protocols",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"38"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "38",
+			"totalRequestTime": "38",
+			"iterationResults": {}
+		},
+		{
+			"name": "6.2.3ars network forensics",
+			"id": "6fcf7e4f-90e0-4678-a79e-34a9349edf52",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/PR1710G316050012/forensics/ars/network",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"37"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "37",
+			"totalRequestTime": "37",
+			"iterationResults": {}
+		},
+		{
+			"name": "6.3.1eas anomalies summary",
+			"id": "371758fe-0828-42e1-a5a2-6909db2e93a1",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/PR1710G316050012/anomaliesSummary/eas",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"121"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "121",
+			"totalRequestTime": "121",
+			"iterationResults": {}
+		},
+		{
+			"name": "6.3.2eas anomaly summary",
+			"id": "06c74adf-b95f-4c11-a461-57f3fe9c1ac7",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/PR1710G316050012/anomaliesSummary/eas/23787c99-4b94-4514-a38e-f753b8f47e57",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"142"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "142",
+			"totalRequestTime": "142",
+			"iterationResults": {}
+		},
+		{
+			"name": "6.4.1eas report for all anomalies",
+			"id": "72f865c4-4e16-4c1e-8897-8c7cebd26709",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/PR1710G316050012/report/eas",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"38"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "38",
+			"totalRequestTime": "38",
+			"iterationResults": {}
+		},
+		{
+			"name": "6.4.2eas report for anomaly",
+			"id": "71f999e1-1ed9-49df-aea3-d4a6b310347e",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/PR1710G316050012/report/eas/23787c99-4b94-4514-a38e-f753b8f47e57",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Response code is 200 and have a body": true,
+				"Chech json": true
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"38"
+			],
+			"allTests": [
+				{
+					"Response code is 200 and have a body": true,
+					"Chech json": true
+				}
+			],
+			"time": "38",
+			"totalRequestTime": "38",
+			"iterationResults": {}
+		}
+	],
+	"totalPass": 122,
+	"totalFail": 0,
+	"totalTime": 42253,
+	"lifecycle": "done",
+	"requests": [
+		{
+			"name": "1.1.1check in",
+			"id": "f7211760-e2e3-48c6-81a2-867145aa910e",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/sessions",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "1.1.2check in with invaild username or password",
+			"id": "927ac89c-6f24-4af7-8cba-1cfaf002d179",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/sessions",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "1.1.3check in with invaild timestamp",
+			"id": "46094551-d9e1-4a64-8597-bd495c8dc27d",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/sessions",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "1.2.1keep live",
+			"id": "89eeea65-c688-4e88-a4b6-5f77bb9a6dba",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/sessions/ef39ca6a55a7e2020fe59ba9ff2ecaa643922556",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "1.2.2check out",
+			"id": "61b340db-a49c-41df-833c-c67335e52143",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/sessions/ef39ca6a55a7e2020fe59ba9ff2ecaa643922556",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "1.2.3recheck in",
+			"id": "c0caa812-c64f-4653-807c-580e6d871c83",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/sessions",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "2.1.1register device",
+			"id": "a3928ace-c789-4603-9232-8c801f2b2a0a",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "2.1.2re-register device",
+			"id": "5a3afe60-1738-4609-a33e-098f79b0baf9",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test1",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "2.1.3disregister device",
+			"id": "699b81f9-76b4-4a44-a421-c571f6717974",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test1",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "2.1.4disregister device with status 4",
+			"id": "e47b837c-780b-4690-99b1-f2b34259633e",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test1",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "2.2.1get configurations",
+			"id": "4ab9d9c5-a8e9-4b0f-88cd-0ed45b69af33",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/configurations",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "2.3.1update itmConfigs",
+			"id": "11d50304-9ee4-4167-b554-cc50eb470938",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/configurations/itmConfigs",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "2.3.3update itmConfigs rollback",
+			"id": "6d245738-140f-4cef-869c-b6603405758f",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/configurations/itmConfigs",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "2.4.1get conf-ars",
+			"id": "ce8550ee-8d9c-437d-87e7-9e754c10b3f9",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/configurations/itmConfigs/ars",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "2.4.2update conf-ars",
+			"id": "5cefa42a-b530-4aa4-a3f4-5ba57b1da15c",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/configurations/itmConfigs/ars",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "2.4.3update conf-ars blacklist",
+			"id": "9ebf05d9-91c6-4606-8d1d-360a84e8c7a9",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/configurations/itmConfigs/ars/blacklists",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "2.4.4get conf-ars blacklist",
+			"id": "e28b5668-dae0-4fcf-a8f5-1ee857b9540e",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/configurations/itmConfigs/ars/blacklists",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "2.4.5update conf-ars rollback",
+			"id": "b6c24d80-0871-4534-ad6b-255914f102dd",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/configurations/itmConfigs/ars",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "2.4.6get conf-mrs",
+			"id": "453cac4c-ddb4-42f9-a028-c6afb5046fe9",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/configurations/itmConfigs/mrs",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "2.4.7update conf-mrs",
+			"id": "abd93b19-7406-47fa-b1c5-80423b959df6",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/configurations/itmConfigs/mrs",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "2.4.8update conf-mrs blacklist",
+			"id": "d46d01b3-31a4-47d3-8df7-b97aba75b9af",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/configurations/itmConfigs/mrs/blacklists",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "2.4.9get conf-mrs blacklist",
+			"id": "55597248-86fb-4e76-8f29-71f19b164364",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/configurations/itmConfigs/mrs/blacklists",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "2.4.10update conf-mrs rollback",
+			"id": "4ac2d496-f137-464b-9268-ef35c09dd0c6",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/configurations/itmConfigs/mrs",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "2.4.11get conf-ers",
+			"id": "da875b57-67e8-48fa-8fbb-f8099bb3b3cb",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/configurations/itmConfigs/ers",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "2.4.12update conf-ers",
+			"id": "6e4c7829-511d-4df7-9b41-360995d8fef0",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/configurations/itmConfigs/ers",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "2.4.13update conf-ers blacklist",
+			"id": "7971f685-8e9e-4a70-8b44-e5635b50b7e8",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/configurations/itmConfigs/ers/blacklists",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "2.4.14get conf-ers blacklist",
+			"id": "2f1f09c2-2123-4cb2-94e1-a445e2d75a1e",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/configurations/itmConfigs/ers/blacklists",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "2.4.15update conf-ers rollback",
+			"id": "554fa49f-e3e1-477c-b2ab-e7e59dcadc3b",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/configurations/itmConfigs/ers",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "2.4.16get conf-versions",
+			"id": "31ce968b-e4b0-482e-ac5f-6a6905ff590c",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/configurations/itmConfigs/versions",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "3.1.1upload files",
+			"id": "478b04ed-abf3-41ca-96ad-6848ea5d87bf",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/upload/files/",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "3.2.1download files",
+			"id": "a24885e2-c8c0-4412-a3de-ca8a6e961135",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/download/files/",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "3.2.2download files readme.txt",
+			"id": "886566aa-f292-4c2e-bb30-146586159e4c",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/download/files/readme.txt",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check file": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "4.1.1get ers models",
+			"id": "21ff4419-63f5-487f-905c-099052794ed5",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/PR1710G316050012/models/ers",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "4.1.2get ers models version",
+			"id": "a80f8517-94b4-4f73-bab9-b7463e738938",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/PR1710G316050012/models/ers/version",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "4.1.2upload custom er models",
+			"id": "948212b9-5022-4c20-bc85-cb3ddd3eb705",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/models/ers",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "4.1.3delete custom ers models",
+			"id": "7b4dc169-ea56-46f1-8344-5ee27b457ed8",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/models/ers",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "4.2.1get mrs tasks",
+			"id": "cf8e43b2-be27-4a7f-8daa-ab2f006dce66",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/tasks/mrs",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "4.2.2update mrs task status",
+			"id": "4da9ca28-38fc-403b-b41f-d3a1bf686727",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/tasks/mrs/9210b20b-7a11-804a-beec-7d59427cb53c",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "4.3.1get eas anomaly",
+			"id": "4f813152-e585-4c1c-8d62-0ee680e04a12",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/PR1710G316050012/anomalies/d4805d42-431d-4c59-b4b6-d28fb7735955",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "4.4.1get anomaly parameters",
+			"id": "46533ae4-4c3a-403e-8d1a-107139ffaebd",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/PR1710G316050012/eas/parameters",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "4.4.2update anomaly parameters",
+			"id": "453dc64f-753e-4ebe-a672-cc78c98e97da",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/PR1710G316050012/eas/parameters",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "5.1.1get all scores",
+			"id": "b8fcf046-deec-466d-be03-27b5193f5f67",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/PR1710G316050012/scores",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "5.1.2get mrs scores",
+			"id": "5d27623b-0b71-419b-92be-530e02ba0232",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/PR1710G316050012/scores/mrsScores",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "5.1.3get ars scores",
+			"id": "1ecf4a1c-7ef7-410f-b606-f3d689253781",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/PR1710G316050012/scores/arsScores",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "5.1.4get ers scores",
+			"id": "fe357a4b-9f7d-4cdb-82ee-f9006a6eecf6",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/PR1710G316050012/scores/ersScores",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "5.1.5get riskLevel scores",
+			"id": "06198139-4d36-444b-954f-1b534d47a0b1",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/PR1710G316050012/scores/riskLevel",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "5.1.6get scores weights",
+			"id": "bd3aa919-d281-45c8-897f-29628646e939",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/PR1710G316050012/scores/weights",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "5.2.1data info for threat",
+			"id": "5200ca3e-826c-4a1c-aead-4347cb3daffe",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/PR1710G316050012/data/info",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "6.1.1xrs forensics for all ers models",
+			"id": "18d4bd66-ddc2-4e47-abcc-46c8627b374d",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/PR1710G316050012/forensics/ers",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "6.1.2xrs forensics for ers model",
+			"id": "4ebaeb68-6345-40d9-9c79-1d3de8c13f75",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/PR1710G316050012/forensics/ers/model/badf93c0-12aa-4f68-abf2-aff067bf15ca",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "6.1.3xrs forensics for ers param",
+			"id": "b7cdf787-8dd8-4163-933e-dce5bee7ae29",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/PR1710G316050012/forensics/ers/param/2dbacf05-1cad-46dd-ad94-e0f7b971b79a",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "6.1.4xrs forensics for eas threat",
+			"id": "85717da6-166a-4990-8de8-a0b31cda25b5",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/PR1710G316050012/forensics/eas/threat/0ca37e75-246a-4beb-8e26-af6ad0c2604a",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "6.1.5xrs forensics for eas anomalyGroups",
+			"id": "6495564f-13aa-4b87-86ed-d930de33d905",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/PR1710G316050012/forensics/eas/anomalyGroup/a318e1e5-dbc5-40c9-900e-a59ca5d716ea",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "6.1.6xrs fiorensics for eas anomaly",
+			"id": "e0307ec9-3f21-4337-a9ed-3434f7b9fc06",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/PR1710G316050012/forensics/eas/anomaly/b87aef5c-f84e-4dc6-93f6-8c73ead9344a",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "6.2.1 ars all forensics",
+			"id": "56ea183d-15e0-4091-b36b-0ffc1bcc24f8",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/PR1710G316050012/forensics/ars",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "6.2.2ars protocols forensics",
+			"id": "51f61b6a-3b08-4858-9b80-135488233202",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/PR1710G316050012/forensics/ars/protocols",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "6.2.3ars network forensics",
+			"id": "6fcf7e4f-90e0-4678-a79e-34a9349edf52",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/PR1710G316050012/forensics/ars/network",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "6.3.1eas anomalies summary",
+			"id": "371758fe-0828-42e1-a5a2-6909db2e93a1",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/PR1710G316050012/anomaliesSummary/eas",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "6.3.2eas anomaly summary",
+			"id": "06c74adf-b95f-4c11-a461-57f3fe9c1ac7",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/PR1710G316050012/anomaliesSummary/eas/23787c99-4b94-4514-a38e-f753b8f47e57",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "6.4.1eas report for all anomalies",
+			"id": "72f865c4-4e16-4c1e-8897-8c7cebd26709",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/PR1710G316050012/report/eas",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "6.4.2eas report for anomaly",
+			"id": "71f999e1-1ed9-49df-aea3-d4a6b310347e",
+			"url": "http://172.22.118.99:8080/ITMCP/v1/devices/PR1710G316050012/report/eas/23787c99-4b94-4514-a38e-f753b8f47e57",
+			"time": "2019-04-12T03:32:03.714Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Response code is 200 and have a body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Chech json": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		}
+	],
+	"synced": false
+}

@@ -1,0 +1,98 @@
+{
+    "timestamp": "2020-03-28 14:12:42",
+    "ersModels": [
+        {
+            "modelID": "a0501bc1-1d0e-31aa-892e-2f2ed1cCDRDC",
+            "description": {
+                "zh": "测试，用户定制ers模型",
+                "en": "Detecting symptoms following the pattern of penetration attacks from attackers in an external domain"
+            },
+            "displayName": {
+                "zh": "test",
+                "en": "Suffering Penetration Attacks"
+            },
+            "modelVersion": 2.1,
+            "modelParameters": [
+                {
+                    "paramID": "2ccae299-81c6-3d86-b42c-dcfc364e5280",
+                    "forensics": {
+                        "description": {
+                            "zh": "%@timestamp% %orig_h%通过%proto%协议连接的IP地址为%resp_h%，目的端口为%resp_p%，连接状态为%conn_state%",
+                            "en": "%@timestamp% %orig_h% connect %resp_h% by %proto%, destination port: %resp_p%, connecting status: %conn_state%."
+                        },
+                        "summary": {
+                            "zh": [
+                                "当前用户：%doc_count%个"
+                            ],
+                            "en": [
+                                "Current User: %doc_count% match(es)"
+                            ]
+                        },
+                        "type": "network"
+                    },
+                    "display": true,
+                    "type": "built-in",
+                    "MappedPolicyID": "2ccae299-81c6-3d86-b42c-dcfc364e5280",
+                    "needConfig": false,
+                    "name": {
+                        "zh": "ers_node_threats_test_lianpengcheng1",
+                        "en": "Connected by suspicious external devices"
+                    }
+                },
+                {
+                    "paramID": "6a90d5e8-c967-3b2d-937f-f5572e49375e",
+                    "forensics": {
+                        "description": {
+                            "zh": "%@timestamp% %orig_h%通过%proto%协议连接的IP地址为%resp_h%，目的端口为%resp_p%，连接状态为%conn_state%",
+                            "en": "%@timestamp% %orig_h% connect %resp_h% by %proto%, destination port: %resp_p%, connecting status: %conn_state%."
+                        },
+                        "summary": {
+                            "zh": [
+                                "当前用户：%doc_count%个"
+                            ],
+                            "en": [
+                                "Current User: %doc_count% match(es)"
+                            ]
+                        },
+                        "type": "network"
+                    },
+                    "display": true,
+                    "type": "built-in",
+                    "MappedPolicyID": "6a90d5e8-c967-3b2d-937f-f5572e49375e",
+                    "needConfig": false,
+                    "name": {
+                        "zh": "ers_node_threats_test_lianpengcheng2",
+                        "en": "Suffering single-port scan attacks"
+                    }
+                },
+                {
+                    "paramID": "af55953d-669f-36e3-bdb8-7ee28319e140",
+                    "forensics": {
+                        "description": {
+                            "zh": "%@timestamp% %orig_h%通过%proto%协议连接的IP地址为%resp_h%，目的端口为%resp_p%，连接状态为%conn_state%",
+                            "en": "%@timestamp% %orig_h% connect %resp_h% by %proto%, destination port: %resp_p%, connecting status: %conn_state%."
+                        },
+                        "summary": {
+                            "zh": [
+                                "当前用户：%doc_count%个"
+                            ],
+                            "en": [
+                                "Current User: %doc_count% match(es)"
+                            ]
+                        },
+                        "type": "network"
+                    },
+                    "display": true,
+                    "type": "built-in",
+                    "MappedPolicyID": "af55953d-669f-36e3-bdb8-7ee28319e140",
+                    "needConfig": false,
+                    "name": {
+                        "zh": "ers_node_threats_test_lianpengcheng3",
+                        "en": "Suffering multiple-ports scan attacks"
+                    }
+                }
+            ]
+        }
+    ],
+    "version": 1122
+}

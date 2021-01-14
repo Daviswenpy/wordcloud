@@ -1,0 +1,1 @@
+setInterval(function (){$("#result_list").load(location.href+" #result_list>*","")},1000)
