@@ -1,0 +1,19 @@
+{
+    "name": "ers_model_threats_test_lianpengcheng",
+    "uuid": "a0501bc1-1d0e-31aa-892e-2f2ed1cbbc1f",
+    "enable": true,
+    "type": "ers",
+    "EU_run_mode": "serial",
+    "EUs": [
+        "2ccae299-81c6-3d86-b42c-dcfc364e5280",
+        "6a90d5e8-c967-3b2d-937f-f5572e49375e",
+        "af55953d-669f-36e3-bdb8-7ee28319e140",
+        "ers_model_base_simple"
+    ],
+    "run_mode": "period",
+    "period": {
+        "interval": 2
+    },
+    "log_level": "debug",
+    "console": "enable"
+}

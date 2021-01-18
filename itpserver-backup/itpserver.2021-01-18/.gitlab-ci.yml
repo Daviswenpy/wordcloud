@@ -1,0 +1,27 @@
+stages:
+  - build
+  - tag
+
+build_job:
+    stage: build
+    before_script:
+      - echo $ITP_BUILD_TAGS
+    script:
+      - sed -i "s/BUILDVERSION/$ITP_BUILD_TAGS/g" debian/changelog
+      - dpkg-buildpackage -b || true
+      - mv ../*.deb /home/share/debs/
+    only:
+      - triggers
+      - pipelines
+
+
+add_tag:
+    stage: tag
+    before_script:
+      - echo $ITP_BUILD_TAGS
+    script:
+      - git tag "$ITP_BUILD_TAGS" || true
+      - git push --tags http://$ITP_GIT_USERNAME:$ITP_GET_PASSWD@git-cloud.skyguardmis.com/itp/itpserver.git HEAD:master
+    only:
+      - triggers
+      - pipelines

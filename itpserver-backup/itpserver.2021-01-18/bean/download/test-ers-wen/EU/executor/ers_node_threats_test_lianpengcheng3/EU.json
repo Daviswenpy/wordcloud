@@ -1,0 +1,162 @@
+{
+    "name": "ers_node_threats_test_lianpengcheng3",
+    "uuid": "af55953d-669f-36e3-bdb8-7ee28319e140",
+    "version": 1,
+    "enable": true,
+    "parameter":{
+        "HISTDAYS": 7,
+        "THREATS_TYPE": "external",
+        "AT_LEAST": [5, 1],
+        "AT_LEAST_MAPPING": ["resp_p#cnt", "orig_p#cnt"],
+        "KEEP_CNT": 100,
+        "parameter": {
+            "8841f2b8-f491-11e9-a861-9a17b6b6610c": {
+                "name": {
+                    "zh": "服务器白名单",
+                    "en": "Server whitelist"
+                },
+                "description": {
+                    "zh": "对于需要对外提供服务的设备可设置白名单过滤",
+                    "en": "Define remote service applications. You can add multiple applications, use a comma to separate multiple items."
+                },
+                "type": "user-set",
+                "inputType": 1,
+                "values": []
+            }
+        },
+        "anomaly": {
+            "needConfig": false,
+            "forensics": {
+                "summary": {
+                    "template": {
+                        "en": [
+                            "Current User: %doc_count% match(es)"
+                        ],
+                        "zh": [
+                            "当前用户：%doc_count%个"
+                        ]
+                    }
+                },
+                "details": {
+                    "template": {
+                        "en": "%@timestamp% %orig_h% connect %resp_h% by %proto%, destination port: %resp_p%, connecting status: %conn_state%.",
+                        "zh": "%@timestamp% %orig_h%通过%proto%协议连接的IP地址为%resp_h%，目的端口为%resp_p%，连接状态为%conn_state%"
+                    },
+                    "type": "network"
+                },
+                "graphs": {
+                    "template": [
+                        {
+                            "variables": ["%timeseries%"],
+                            "order": "asc",
+                            "AxisInfo": {
+                                "XAxis": {
+                                    "data": "key",
+                                    "type": "timestamp"
+                                },
+                                "YAxis": {
+                                    "data": "doc_count",
+                                    "type": "number"
+                                }
+                            },
+                            "verticalAxis": {
+                                "en": "时序图",
+                                "zh": "时序图"
+                            },
+                            "type": 3,
+                            "horizontalAxis": {
+                                "en": "时序图",
+                                "zh": "时序图"
+                            },
+                            "agg_query": {
+                                "timeseries": {
+                                    "date_histogram": {
+                                        "field": "@timestamp",
+                                        "interval": "hour",
+                                        "min_doc_count": 1
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "variables": ["%histCnt%"],
+                            "order": "asc",
+                            "verticalAxis": {
+                                "en": "日计数",
+                                "zh": "日计数"
+                            },
+                            "AxisInfo": {
+                                "XAxis": {
+                                    "data": "key",
+                                    "type": "timestamp"
+                                },
+                                "YAxis": {
+                                    "data": "doc_count",
+                                    "type": "number"
+                                }
+                            },
+                            "type": 2,
+                            "horizontalAxis": {
+                                "en": "日计数",
+                                "zh": "日计数"
+                            },
+                            "agg_query": {
+                                "histCnt": {
+                                    "date_histogram": {
+                                        "field": "@timestamp",
+                                        "interval": "day",
+                                        "min_doc_count": 0,
+                                        "format": "yyyy-MM-dd"
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "variables": ["%tarinfo%"],
+                            "verticalAxis": {
+                                "en": "可疑外部连接统计",
+                                "zh": "可疑外部连接统计"
+                            },
+                            "order": "desc",
+                            "AxisInfo": {
+                                "XAxis": {
+                                    "data": "key",
+                                    "type": "string"
+                                },
+                                "YAxis": {
+                                    "data": "doc_count",
+                                    "type": "number"
+                                }
+                            },
+                            "type": 1,
+                            "horizontalAxis": {
+                                "en": "可疑外部连接统计",
+                                "zh": "可疑外部连接统计"
+                            },
+                            "agg_query": {
+                                "tarinfo": {
+                                    "terms": {
+                                        "field": "sourceIp",
+                                        "size": 10
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "tarinfo": [],
+                    "histCnt": [],
+                    "timeseries": []
+                }
+            },
+            "display": true,
+            "name": {
+                "en": "ers_node_thrats_test_lianpengcheng3",
+                "zh": "ers_node_thrats_test_lianpengcheng3"
+            },
+            "MappedPolicyID": "af55953d-669f-36e3-bdb8-7ee28319e140",
+            "type": 0,
+            "use_query": true,
+            "parameterUuid": ["8841f2b8-f491-11e9-a861-9a17b6b6610c"]
+        }
+    }
+}

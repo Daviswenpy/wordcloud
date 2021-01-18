@@ -1,0 +1,5382 @@
+{
+	"info": {
+		"_postman_id": "e4b70b9c-0c6a-4db0-9c35-aea8f5065308",
+		"name": "ITP test",
+		"description": "# Introduction\nITPService doc and test\n\n# Overview\nDoc info and auto test with views file  \nviews001: Authentification  \nviews002: Device management  \nviews003: Upload and download files  \nviews004: Models, mrs task and eas anomaly management  \nviews005: Risklevel and data info  \nviews006: Xrs forensics, eas report and eas summary\n\n# Authentication\nBasic authentication using ip and token \n\n# Error Codes\nstatus: 1, \"Basic error  \nstatus: 2, \"Timestamp error  \nstatus: 3, \"Authentication failed  \nstatus: 4, \"Not rigister  \nstatus: 5, \"No file upload  \nstatus: 6, \"Data not found  \nstatus: 7, \"Elasticsearch Connection refused  \nstatus: 8, \"Elasticsearch query error  \nstatus: 9, \"Object error  \nstatus: 10, \"Password error  \nstatus: 99, Unknown error or Name Error  \n\n# Rate limit\nToken expiration time is 3600 seconds\n\n# Usages\n1.do check in requests(in views001.py)  \n2.do register device (deviceID:postman-test, if need)  \n3.admin debug info, use Headers(ip:admin-ip)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "views001.py",
+			"item": [
+				{
+					"name": "1.1.1check in",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "68a60056-0183-4ba7-ac56-8d1b7d8704f2",
+								"exec": [
+									"var ts = Math.round(Date.now()/1000)",
+									"var username = \"itm-admin\"",
+									"var password = \"itm-admin\"",
+									"",
+									"function fuck(x){",
+									"    return `\"${x}\"`;",
+									"}",
+									"",
+									"hash_str = username + ts.toString() + CryptoJS.SHA256(password)",
+									"",
+									"var passwordHash = btoa(CryptoJS.SHA256(hash_str)).slice(0,12)",
+									"",
+									"pm.environment.set(\"ts\", ts)",
+									"pm.environment.set(\"username\", fuck(username))",
+									"pm.environment.set(\"passwordHash\", fuck(passwordHash))",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "05801d81-b307-4d6f-830e-4921884163e0",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"pm.environment.unset(\"ts\");",
+									"pm.environment.unset(\"username\");",
+									"pm.environment.unset(\"passwordHash\");",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.status).to.eql(0);",
+									"    pm.expect(jsonData.sessionTimeout).to.eql(3600);",
+									"    pm.globals.set(\"ip\", jsonData.clientIP)",
+									"    pm.globals.set(\"sessionID\", jsonData.sessionID)",
+									"    pm.globals.set(\"admin-ip\", \"skyguard-admin\")",
+									"    pm.globals.set(\"dev-deviceID\", \"PR1710G316050012\")",
+									"    pm.globals.set(\"test-deviceID\", \"postman-test\")",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "ip",
+								"value": "{{admin-ip}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"username\": {{username}}, \"timestamp\": {{ts}}, \"passwordHash\": {{passwordHash}}}"
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/sessions",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"sessions"
+							]
+						},
+						"description": "Get itm token"
+					},
+					"response": [
+						{
+							"name": "1.check in with error timestamp",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"username\": \"itm-admin\", \"timestamp\": 1527328995, \"passwordHash\": \"ZTQ2YzBlNWQ5\"}"
+								},
+								"url": {
+									"raw": "http://172.22.118.99:8080/ITMCP/v1/sessions",
+									"protocol": "http",
+									"host": [
+										"172",
+										"22",
+										"118",
+										"99"
+									],
+									"port": "8080",
+									"path": [
+										"ITMCP",
+										"v1",
+										"sessions"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 13 Mar 2019 08:11:29 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.1 Python/2.7.15rc1"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "41"
+								},
+								{
+									"key": "Allow",
+									"value": "POST, OPTIONS"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 2,\n    \"detail\": \"Invaild timestamp\"\n}"
+						}
+					]
+				},
+				{
+					"name": "1.1.2check in with invaild username or password",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "976c0b94-60d5-4f80-b20c-4e807845485c",
+								"exec": [
+									"var ts = Math.round(Date.now()/1000)",
+									"var username = \"itm-admi\"",
+									"var password = \"itm-admi\"",
+									"",
+									"function fuck(x){",
+									"    return `\"${x}\"`;",
+									"}",
+									"",
+									"hash_str = username + ts.toString() + CryptoJS.SHA256(password)",
+									"",
+									"var passwordHash = btoa(CryptoJS.SHA256(hash_str)).slice(0,12)",
+									"",
+									"pm.environment.set(\"ts\", ts)",
+									"pm.environment.set(\"username\", fuck(username))",
+									"pm.environment.set(\"passwordHash\", fuck(passwordHash))",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "a2745295-1eda-45a0-919f-ec5853a784d2",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"pm.environment.unset(\"ts\");",
+									"pm.environment.unset(\"username\");",
+									"pm.environment.unset(\"passwordHash\");",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.status).to.eql(1);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"username\": {{username}}, \"timestamp\": {{ts}}, \"passwordHash\": {{passwordHash}}}"
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/sessions",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"sessions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "1.1.3check in with invaild timestamp",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "976c0b94-60d5-4f80-b20c-4e807845485c",
+								"exec": [
+									"var ts = Math.round(Date.now()/1000)-601",
+									"var username = \"itm-admin\"",
+									"var password = \"itm-admin\"",
+									"",
+									"function fuck(x){",
+									"    return `\"${x}\"`;",
+									"}",
+									"",
+									"hash_str = username + ts.toString() + CryptoJS.SHA256(password)",
+									"",
+									"var passwordHash = btoa(CryptoJS.SHA256(hash_str)).slice(0,12)",
+									"",
+									"pm.environment.set(\"ts\", ts)",
+									"pm.environment.set(\"username\", fuck(username))",
+									"pm.environment.set(\"passwordHash\", fuck(passwordHash))",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "a2745295-1eda-45a0-919f-ec5853a784d2",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"pm.environment.unset(\"ts\");",
+									"pm.environment.unset(\"username\");",
+									"pm.environment.unset(\"passwordHash\");",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.status).to.eql(2);",
+									"    pm.expect(jsonData.detail).to.eql(\"Invalid timestamp.\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "ip",
+								"value": "{{admin-ip}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"username\": {{username}}, \"timestamp\": {{ts}}, \"passwordHash\": {{passwordHash}}}"
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/sessions",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"sessions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "1.2.1keep live",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a3e05d48-90eb-4e31-9ca9-72145c483d07",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.status).to.eql(0);",
+									"    pm.expect(jsonData.sessionTimeout).to.eql(3600);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sessionID}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ip}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "ip",
+								"value": "{{admin-ip}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/sessions/{{sessionID}}",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"sessions",
+								"{{sessionID}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "2.keep live",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://172.22.118.99:8080/ITMCP/v1/sessions/{{sessionID}}",
+									"protocol": "http",
+									"host": [
+										"172",
+										"22",
+										"118",
+										"99"
+									],
+									"port": "8080",
+									"path": [
+										"ITMCP",
+										"v1",
+										"sessions",
+										"{{sessionID}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 13 Mar 2019 09:47:38 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.1 Python/2.7.15rc1"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "34"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, OPTIONS, DELETE"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 0,\n    \"sessionTimeout\": 3600\n}"
+						}
+					]
+				},
+				{
+					"name": "1.2.2check out",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "880d59ed-044d-47ee-8bf6-13e540c818a2",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.status).to.eql(0);",
+									"    pm.expect(jsonData.username).to.eql(\"itm-admin\");",
+									"    pm.expect(jsonData.sessionID).to.eql(pm.variables.get(\"sessionID\"));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "{{ip}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{sessionID}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "ip",
+								"value": "{{admin-ip}}",
+								"type": "text"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/sessions/{{sessionID}}?",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"sessions",
+								"{{sessionID}}"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "1.2.3recheck in",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "68a60056-0183-4ba7-ac56-8d1b7d8704f2",
+								"exec": [
+									"var ts = Math.round(Date.now()/1000)",
+									"var username = \"itm-admin\"",
+									"var password = \"itm-admin\"",
+									"",
+									"function fuck(x){",
+									"    return `\"${x}\"`;",
+									"}",
+									"",
+									"hash_str = username + ts.toString() + CryptoJS.SHA256(password)",
+									"",
+									"var passwordHash = btoa(CryptoJS.SHA256(hash_str)).slice(0,12)",
+									"",
+									"pm.environment.set(\"ts\", ts)",
+									"pm.environment.set(\"username\", fuck(username))",
+									"pm.environment.set(\"passwordHash\", fuck(passwordHash))",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "05801d81-b307-4d6f-830e-4921884163e0",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"pm.environment.unset(\"ts\");",
+									"pm.environment.unset(\"username\");",
+									"pm.environment.unset(\"passwordHash\");",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.status).to.eql(0);",
+									"    pm.expect(jsonData.sessionTimeout).to.eql(3600);",
+									"    pm.globals.set(\"ip\", jsonData.clientIP)",
+									"    pm.globals.set(\"sessionID\", jsonData.sessionID)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "ip",
+								"value": "{{admin-ip}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"username\": {{username}}, \"timestamp\": {{ts}}, \"passwordHash\": {{passwordHash}}}"
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/sessions",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"sessions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "views002.py",
+			"item": [
+				{
+					"name": "2.1.1register device",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a0cafd8b-32a2-4f6c-a2cb-5322a64832b9",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json()",
+									"    pm.expect(jsonData.status).to.eql(0);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sessionID}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ip}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ip",
+								"value": "{{admin-ip}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"deviceName\": \"lian-test\",\n    \"deviceID\": \"postman-test\",\n    \"logSources\": []\n}"
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/devices/{{test-deviceID}}",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"devices",
+								"{{test-deviceID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.1.2re-register device",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a0cafd8b-32a2-4f6c-a2cb-5322a64832b9",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json()",
+									"    pm.expect(jsonData.status).to.eql(0);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sessionID}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ip}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ip",
+								"value": "{{admin-ip}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"deviceName\": \"lian-test1\",\n    \"deviceID\": \"postman-test1\",\n    \"logSources\": []\n}"
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test1",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"devices",
+								"postman-test1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.1.3disregister device",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1bb95e46-960f-473d-9932-c45f42cb8c48",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json()",
+									"    pm.expect(jsonData.status).to.eql(0);",
+									"    pm.expect(jsonData.deviceName).to.eql(\"lian-test1\");",
+									"    pm.expect(jsonData.deviceID).to.eql(\"postman-test1\");",
+									"    pm.expect(jsonData.logSources).to.eql([]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sessionID}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ip}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ip",
+								"value": "{{admin-ip}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test1",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"devices",
+								"postman-test1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.1.4disregister device with status 4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "25ec992c-f409-4449-9cc9-92ad72f6a7b7",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json()",
+									"    pm.expect(jsonData.status).to.eql(4);",
+									"    pm.expect(jsonData.detail).to.eql(\"Not rigister.\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sessionID}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ip}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ip",
+								"value": "{{admin-ip}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test1",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"devices",
+								"postman-test1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.2.1get configurations",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "82a9be4c-a821-4a71-9082-73fabde75c90",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json()",
+									"    pm.expect(jsonData.status).to.eql(0);",
+									"    pm.expect(jsonData.deviceName).to.eql(\"lian-test\")",
+									"    pm.expect(jsonData.is_active).to.eql(true)",
+									"    pm.expect(jsonData.deviceID).to.eql(\"postman-test\")",
+									"    pm.expect(jsonData.logSources).to.eql([])",
+									"    // pm.expect(jsonData.itmConfigs).to.eql( {",
+									"    //     \"ers\": {",
+									"    //         \"interval\": 7200,",
+									"    //         \"ChosenModels\": [],",
+									"    //         \"modelParameterMap\": [],",
+									"    //         \"blacklist\": [",
+									"    //             {",
+									"    //                 \"type\": 1,",
+									"    //                 \"value\": []",
+									"    //             },",
+									"    //             {",
+									"    //                 \"type\": 2,",
+									"    //                 \"value\": []",
+									"    //             },",
+									"    //             {",
+									"    //                 \"type\": 3,",
+									"    //                 \"value\": []",
+									"    //             },",
+									"    //             {",
+									"    //                 \"type\": 4,",
+									"    //                 \"value\": []",
+									"    //             },",
+									"    //             {",
+									"    //                 \"type\": 5,",
+									"    //                 \"value\": []",
+									"    //             }",
+									"    //         ],",
+									"    //         \"topN\": 0,",
+									"    //         \"version\": 0",
+									"    //     },",
+									"    //     \"ars\": {",
+									"    //         \"subsystems\": [],",
+									"    //         \"interval\": 7200,",
+									"    //         \"chosenGroups\": [],",
+									"    //         \"blacklist\": [",
+									"    //             {",
+									"    //                 \"type\": 1,",
+									"    //                 \"value\": []",
+									"    //             },",
+									"    //             {",
+									"    //                 \"type\": 2,",
+									"    //                 \"value\": []",
+									"    //             },",
+									"    //             {",
+									"    //                 \"type\": 3,",
+									"    //                 \"value\": []",
+									"    //             },",
+									"    //             {",
+									"    //                 \"type\": 4,",
+									"    //                 \"value\": []",
+									"    //             },",
+									"    //             {",
+									"    //                 \"type\": 5,",
+									"    //                 \"value\": []",
+									"    //             }",
+									"    //         ],",
+									"    //         \"topN\": 0,",
+									"    //         \"version\": 0",
+									"    //     },",
+									"    //     \"mrs\": {",
+									"    //         \"chosenDLPPolicies\": [",
+									"    //             {",
+									"    //                 \"status\": 1,",
+									"    //                 \"chosenGroups\": [],",
+									"    //                 \"policyID\": \"4530cf1f-6edc-428c-8472-eb5aa17af9d3\"",
+									"    //             },",
+									"    //             {",
+									"    //                 \"status\": 1,",
+									"    //                 \"chosenGroups\": [],",
+									"    //                 \"policyID\": \"99c22472-2d05-446f-a87e-ef7ac4053430\"",
+									"    //             },",
+									"    //             {",
+									"    //                 \"status\": 1,",
+									"    //                 \"chosenGroups\": [],",
+									"    //                 \"policyID\": \"9210b20b-7a11-804a-beec-7d59427cb53c\"",
+									"    //             }",
+									"    //         ],",
+									"    //         \"interval\": 7200,",
+									"    //         \"blacklist\": [",
+									"    //             {}",
+									"    //         ],",
+									"    //         \"topN\": 0,",
+									"    //         \"version\": 1,",
+									"    //         \"uploadToLab\": true,",
+									"    //         \"retrospectiveDays\": 7",
+									"    //     }",
+									"    // })",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sessionID}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ip}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ip",
+								"value": "{{admin-ip}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/configurations",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"devices",
+								"postman-test",
+								"configurations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.3.1update itmConfigs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6c55682a-9fb3-4f55-9e6c-413e34065b28",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json()",
+									"    pm.expect(jsonData.status).to.eql(0);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sessionID}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ip}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ip",
+								"value": "{{admin-ip}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"ars\": {\n            \"subsystems\": [],\n            \"interval\": 7200,\n            \"chosenGroups\": [],\n            \"blacklist\": [\n                {\n                    \"type\": 1,\n                    \"value\": []\n                },\n                {\n                    \"type\": 2,\n                    \"value\": []\n                },\n                {\n                    \"type\": 3,\n                    \"value\": []\n                },\n                {\n                    \"type\": 4,\n                    \"value\": []\n                },\n                {\n                    \"type\": 5,\n                    \"value\": []\n                }\n            ],\n            \"topN\": 0,\n            \"version\": 0\n        },\n        \"mrs\": {\n            \"chosenDLPPolicies\": [],\n            \"interval\": 7200,\n            \"blacklist\": [\n                {\n                    \"type\": 1,\n                    \"value\": []\n                },\n                {\n                    \"type\": 2,\n                    \"value\": []\n                },\n                {\n                    \"type\": 3,\n                    \"value\": []\n                },\n                {\n                    \"type\": 4,\n                    \"value\": []\n                },\n                {\n                    \"type\": 5,\n                    \"value\": []\n                }\n            ],\n            \"topN\": 0,\n            \"version\": 0,\n            \"uploadToLab\": true,\n            \"retrospectiveDays\": 7\n        },\n        \"ers\": {\n            \"interval\": 7200,\n            \"ChosenModels\": [],\n            \"modelParameterMap\": [],\n            \"blacklist\": [\n                {\n                    \"type\": 1,\n                    \"value\": []\n                },\n                {\n                    \"type\": 2,\n                    \"value\": []\n                },\n                {\n                    \"type\": 3,\n                    \"value\": []\n                },\n                {\n                    \"type\": 4,\n                    \"value\": []\n                },\n                {\n                    \"type\": 5,\n                    \"value\": []\n                }\n            ],\n            \"topN\": 0,\n            \"version\": 1\n        }\n    }"
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/configurations/itmConfigs",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"devices",
+								"postman-test",
+								"configurations",
+								"itmConfigs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.3.3update itmConfigs rollback",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6c55682a-9fb3-4f55-9e6c-413e34065b28",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json()",
+									"    pm.expect(jsonData.status).to.eql(0);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sessionID}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ip}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ip",
+								"value": "{{admin-ip}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"ars\": {\n            \"subsystems\": [],\n            \"interval\": 7200,\n            \"chosenGroups\": [],\n            \"blacklist\": [\n                {\n                    \"type\": 1,\n                    \"value\": []\n                },\n                {\n                    \"type\": 2,\n                    \"value\": []\n                },\n                {\n                    \"type\": 3,\n                    \"value\": []\n                },\n                {\n                    \"type\": 4,\n                    \"value\": []\n                },\n                {\n                    \"type\": 5,\n                    \"value\": []\n                }\n            ],\n            \"topN\": 0,\n            \"version\": 0\n        },\n        \"mrs\": {\n            \"chosenDLPPolicies\": [],\n            \"interval\": 7200,\n            \"blacklist\": [\n                {\n                    \"type\": 1,\n                    \"value\": []\n                },\n                {\n                    \"type\": 2,\n                    \"value\": []\n                },\n                {\n                    \"type\": 3,\n                    \"value\": []\n                },\n                {\n                    \"type\": 4,\n                    \"value\": []\n                },\n                {\n                    \"type\": 5,\n                    \"value\": []\n                }\n            ],\n            \"topN\": 0,\n            \"version\": 0,\n            \"uploadToLab\": true,\n            \"retrospectiveDays\": 7\n        },\n        \"ers\": {\n            \"interval\": 7200,\n            \"ChosenModels\": [],\n            \"modelParameterMap\": [],\n            \"blacklist\": [\n                {\n                    \"type\": 1,\n                    \"value\": []\n                },\n                {\n                    \"type\": 2,\n                    \"value\": []\n                },\n                {\n                    \"type\": 3,\n                    \"value\": []\n                },\n                {\n                    \"type\": 4,\n                    \"value\": []\n                },\n                {\n                    \"type\": 5,\n                    \"value\": []\n                }\n            ],\n            \"topN\": 0,\n            \"version\": 0\n        }\n    }"
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/configurations/itmConfigs",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"devices",
+								"postman-test",
+								"configurations",
+								"itmConfigs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.4.1get conf-ars",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c45f1a8b-a54a-480e-90e9-2481a823d195",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json()",
+									"    pm.expect(jsonData.status).to.eql(0);",
+									"    pm.expect(jsonData.ars).to.eql({",
+									"        \"subsystems\": [],",
+									"        \"interval\": 7200,",
+									"        \"chosenGroups\": [],",
+									"        \"blacklist\": [",
+									"            {",
+									"                \"type\": 1,",
+									"                \"value\": []",
+									"            },",
+									"            {",
+									"                \"type\": 2,",
+									"                \"value\": []",
+									"            },",
+									"            {",
+									"                \"type\": 3,",
+									"                \"value\": []",
+									"            },",
+									"            {",
+									"                \"type\": 4,",
+									"                \"value\": []",
+									"            },",
+									"            {",
+									"                \"type\": 5,",
+									"                \"value\": []",
+									"            }",
+									"        ],",
+									"        \"topN\": 0,",
+									"        \"version\": 0",
+									"    })",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sessionID}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ip}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ip",
+								"value": "{{admin-ip}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/configurations/itmConfigs/ars",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"devices",
+								"postman-test",
+								"configurations",
+								"itmConfigs",
+								"ars"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.4.2update conf-ars",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1e44b62f-50e5-4c9e-a739-e7f790b09e44",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json()",
+									"    pm.expect(jsonData.status).to.eql(0);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sessionID}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ip}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ip",
+								"value": "{{admin-ip}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"subsystems\": [],\n        \"interval\": 7200,\n        \"chosenGroups\": [],\n        \"blacklist\": [\n            {\n                \"type\": 1,\n                \"value\": []\n            },\n            {\n                \"type\": 2,\n                \"value\": []\n            },\n            {\n                \"type\": 3,\n                \"value\": []\n            },\n            {\n                \"type\": 4,\n                \"value\": []\n            },\n            {\n                \"type\": 5,\n                \"value\": []\n            }\n        ],\n        \"topN\": 0,\n        \"version\": 1\n    }"
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/configurations/itmConfigs/ars",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"devices",
+								"postman-test",
+								"configurations",
+								"itmConfigs",
+								"ars"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.4.3update conf-ars blacklist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ed3449d6-8e1d-4650-96b6-0b475c4c90a4",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json()",
+									"    pm.expect(jsonData.status).to.eql(0);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sessionID}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ip}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ip",
+								"value": "{{admin-ip}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"blacklist\": [\n            {\n                \"type\": 1,\n                \"value\": [\"172.22.118.55\"]\n            },\n            {\n                \"type\": 2,\n                \"value\": []\n            },\n            {\n                \"type\": 3,\n                \"value\": []\n            },\n            {\n                \"type\": 4,\n                \"value\": []\n            },\n            {\n                \"type\": 5,\n                \"value\": []\n            }\n        ]\n}"
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/configurations/itmConfigs/ars/blacklists",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"devices",
+								"postman-test",
+								"configurations",
+								"itmConfigs",
+								"ars",
+								"blacklists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.4.4get conf-ars blacklist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ed3449d6-8e1d-4650-96b6-0b475c4c90a4",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json()",
+									"    pm.expect(jsonData.status).to.eql(0);",
+									"    pm.expect(jsonData.blacklist).to.eql([",
+									"        {",
+									"            \"type\": 1,",
+									"            \"value\": [",
+									"                \"172.22.118.55\"",
+									"            ]",
+									"        },",
+									"        {",
+									"            \"type\": 2,",
+									"            \"value\": []",
+									"        },",
+									"        {",
+									"            \"type\": 3,",
+									"            \"value\": []",
+									"        },",
+									"        {",
+									"            \"type\": 4,",
+									"            \"value\": []",
+									"        },",
+									"        {",
+									"            \"type\": 5,",
+									"            \"value\": []",
+									"        }",
+									"    ]);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sessionID}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ip}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ip",
+								"value": "{{admin-ip}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/configurations/itmConfigs/ars/blacklists",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"devices",
+								"postman-test",
+								"configurations",
+								"itmConfigs",
+								"ars",
+								"blacklists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.4.5update conf-ars rollback",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "94a75c57-d957-474f-a1f3-272d43c9bfa5",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json()",
+									"    pm.expect(jsonData.status).to.eql(0);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sessionID}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ip}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ip",
+								"value": "{{admin-ip}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"subsystems\": [],\n        \"interval\": 7200,\n        \"chosenGroups\": [],\n        \"blacklist\": [\n            {\n                \"type\": 1,\n                \"value\": []\n            },\n            {\n                \"type\": 2,\n                \"value\": []\n            },\n            {\n                \"type\": 3,\n                \"value\": []\n            },\n            {\n                \"type\": 4,\n                \"value\": []\n            },\n            {\n                \"type\": 5,\n                \"value\": []\n            }\n        ],\n        \"topN\": 0,\n        \"version\": 0\n    }"
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/configurations/itmConfigs/ars",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"devices",
+								"postman-test",
+								"configurations",
+								"itmConfigs",
+								"ars"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.4.6get conf-mrs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "584fd80f-f656-4ae0-9e96-d4a3d1df6350",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json()",
+									"    pm.expect(jsonData.status).to.eql(0);",
+									"    pm.expect(jsonData.mrs).to.eql({",
+									"        \"chosenDLPPolicies\": [],",
+									"        \"interval\": 7200,",
+									"        \"blacklist\": [",
+									"            {",
+									"                \"type\": 1,",
+									"                \"value\": []",
+									"            },",
+									"            {",
+									"                \"type\": 2,",
+									"                \"value\": []",
+									"            },",
+									"            {",
+									"                \"type\": 3,",
+									"                \"value\": []",
+									"            },",
+									"            {",
+									"                \"type\": 4,",
+									"                \"value\": []",
+									"            },",
+									"            {",
+									"                \"type\": 5,",
+									"                \"value\": []",
+									"            }",
+									"        ],",
+									"        \"topN\": 0,",
+									"        \"version\": 0,",
+									"        \"uploadToLab\": true,",
+									"        \"retrospectiveDays\": 7",
+									"    })",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sessionID}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ip}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ip",
+								"value": "{{admin-ip}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/configurations/itmConfigs/mrs",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"devices",
+								"postman-test",
+								"configurations",
+								"itmConfigs",
+								"mrs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.4.7update conf-mrs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4834e6d7-e9f2-4aed-be54-61cd51ac1ad5",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json()",
+									"    pm.expect(jsonData.status).to.eql(0);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sessionID}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ip}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ip",
+								"value": "{{admin-ip}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " {\n        \"chosenDLPPolicies\": [],\n        \"interval\": 7200,\n        \"blacklist\": [\n            {\n                \"type\": 1,\n                \"value\": []\n            },\n            {\n                \"type\": 2,\n                \"value\": []\n            },\n            {\n                \"type\": 3,\n                \"value\": []\n            },\n            {\n                \"type\": 4,\n                \"value\": []\n            },\n            {\n                \"type\": 5,\n                \"value\": []\n            }\n        ],\n        \"topN\": 0,\n        \"version\": 0,\n        \"uploadToLab\": true,\n        \"retrospectiveDays\": 7\n    }"
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/configurations/itmConfigs/mrs",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"devices",
+								"postman-test",
+								"configurations",
+								"itmConfigs",
+								"mrs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.4.8update conf-mrs blacklist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "29976321-71d6-4aaa-b364-b065263f68aa",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json()",
+									"    pm.expect(jsonData.status).to.eql(0);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sessionID}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ip}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ip",
+								"value": "{{admin-ip}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"blacklist\": [\n            {\n                \"type\": 1,\n                \"value\": [\"172.22.118.55\"]\n            },\n            {\n                \"type\": 2,\n                \"value\": []\n            },\n            {\n                \"type\": 3,\n                \"value\": []\n            },\n            {\n                \"type\": 4,\n                \"value\": []\n            },\n            {\n                \"type\": 5,\n                \"value\": []\n            }\n        ]\n}"
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/configurations/itmConfigs/mrs/blacklists",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"devices",
+								"postman-test",
+								"configurations",
+								"itmConfigs",
+								"mrs",
+								"blacklists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.4.9get conf-mrs blacklist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ed3449d6-8e1d-4650-96b6-0b475c4c90a4",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json()",
+									"    pm.expect(jsonData.status).to.eql(0);",
+									"    pm.expect(jsonData.blacklist).to.eql([",
+									"        {",
+									"            \"type\": 1,",
+									"            \"value\": [",
+									"                \"172.22.118.55\"",
+									"            ]",
+									"        },",
+									"        {",
+									"            \"type\": 2,",
+									"            \"value\": []",
+									"        },",
+									"        {",
+									"            \"type\": 3,",
+									"            \"value\": []",
+									"        },",
+									"        {",
+									"            \"type\": 4,",
+									"            \"value\": []",
+									"        },",
+									"        {",
+									"            \"type\": 5,",
+									"            \"value\": []",
+									"        }",
+									"    ]);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sessionID}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ip}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ip",
+								"value": "{{admin-ip}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/configurations/itmConfigs/mrs/blacklists",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"devices",
+								"postman-test",
+								"configurations",
+								"itmConfigs",
+								"mrs",
+								"blacklists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.4.10update conf-mrs rollback",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a2c0af9a-77e5-4e2d-8646-bf477d3ee1ea",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json()",
+									"    pm.expect(jsonData.status).to.eql(0);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sessionID}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ip}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ip",
+								"value": "{{admin-ip}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"chosenDLPPolicies\": [\n            {\n                  \"policyID\": \"4530cf1f-6edc-428c-8472-eb5aa17af9d3\",\n                  \"chosenGroups\": [],\n                  \"status\": 1\n                },\n                {\n                  \"policyID\": \"99c22472-2d05-446f-a87e-ef7ac4053430\",\n                  \"chosenGroups\": [],\n                  \"status\": 1\n                },\n                {\n                  \"policyID\": \"9210b20b-7a11-804a-beec-7d59427cb53c\",\n                  \"chosenGroups\": [],\n                  \"status\": 1\n                }\n        ],\n        \"interval\": 7200,\n        \"blacklist\": [\n            {}\n        ],\n        \"topN\": 0,\n        \"version\": 1,\n        \"uploadToLab\": true,\n        \"retrospectiveDays\": 7\n    }"
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/configurations/itmConfigs/mrs",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"devices",
+								"postman-test",
+								"configurations",
+								"itmConfigs",
+								"mrs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.4.11get conf-ers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "be264841-2ff3-4ad3-a90e-baf96a1abac7",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json()",
+									"    pm.expect(jsonData.status).to.eql(0);",
+									"    pm.expect(jsonData.ers).to.eql({",
+									"        \"interval\": 7200,",
+									"        \"ChosenModels\": [],",
+									"        \"modelParameterMap\": [],",
+									"        \"blacklist\": [",
+									"            {",
+									"                \"type\": 1,",
+									"                \"value\": []",
+									"            },",
+									"            {",
+									"                \"type\": 2,",
+									"                \"value\": []",
+									"            },",
+									"            {",
+									"                \"type\": 3,",
+									"                \"value\": []",
+									"            },",
+									"            {",
+									"                \"type\": 4,",
+									"                \"value\": []",
+									"            },",
+									"            {",
+									"                \"type\": 5,",
+									"                \"value\": []",
+									"            }",
+									"        ],",
+									"        \"topN\": 0,",
+									"        \"version\": 0",
+									"    })",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sessionID}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ip}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ip",
+								"value": "{{admin-ip}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/configurations/itmConfigs/ers",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"devices",
+								"postman-test",
+								"configurations",
+								"itmConfigs",
+								"ers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.4.12update conf-ers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "31c5c227-43f7-474b-9643-93bd59f69e3d",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json()",
+									"    pm.expect(jsonData.status).to.eql(0);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sessionID}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ip}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ip",
+								"value": "{{admin-ip}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"interval\": 7200,\n        \"ChosenModels\": [],\n        \"modelParameterMap\": [],\n        \"blacklist\": [\n            {\n                \"type\": 1,\n                \"value\": []\n            },\n            {\n                \"type\": 2,\n                \"value\": []\n            },\n            {\n                \"type\": 3,\n                \"value\": []\n            },\n            {\n                \"type\": 4,\n                \"value\": []\n            },\n            {\n                \"type\": 5,\n                \"value\": []\n            }\n        ],\n        \"topN\": 0,\n        \"version\": 1\n    }"
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/configurations/itmConfigs/ers",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"devices",
+								"postman-test",
+								"configurations",
+								"itmConfigs",
+								"ers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.4.13update conf-ers blacklist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "32cb0618-8905-4caa-8cee-929e4afe7540",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json()",
+									"    pm.expect(jsonData.status).to.eql(0);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sessionID}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ip}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ip",
+								"value": "{{admin-ip}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"blacklist\": [\n            {\n                \"type\": 1,\n                \"value\": [\"172.22.118.55\"]\n            },\n            {\n                \"type\": 2,\n                \"value\": []\n            },\n            {\n                \"type\": 3,\n                \"value\": []\n            },\n            {\n                \"type\": 4,\n                \"value\": []\n            },\n            {\n                \"type\": 5,\n                \"value\": []\n            }\n        ]\n}"
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/configurations/itmConfigs/ers/blacklists",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"devices",
+								"postman-test",
+								"configurations",
+								"itmConfigs",
+								"ers",
+								"blacklists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.4.14get conf-ers blacklist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ed3449d6-8e1d-4650-96b6-0b475c4c90a4",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json()",
+									"    pm.expect(jsonData.status).to.eql(0);",
+									"    pm.expect(jsonData.blacklist).to.eql([",
+									"        {",
+									"            \"type\": 1,",
+									"            \"value\": [",
+									"                \"172.22.118.55\"",
+									"            ]",
+									"        },",
+									"        {",
+									"            \"type\": 2,",
+									"            \"value\": []",
+									"        },",
+									"        {",
+									"            \"type\": 3,",
+									"            \"value\": []",
+									"        },",
+									"        {",
+									"            \"type\": 4,",
+									"            \"value\": []",
+									"        },",
+									"        {",
+									"            \"type\": 5,",
+									"            \"value\": []",
+									"        }",
+									"    ]);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sessionID}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ip}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ip",
+								"value": "{{admin-ip}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/configurations/itmConfigs/ers/blacklists",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"devices",
+								"postman-test",
+								"configurations",
+								"itmConfigs",
+								"ers",
+								"blacklists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.4.15update conf-ers rollback",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "31c5c227-43f7-474b-9643-93bd59f69e3d",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json()",
+									"    pm.expect(jsonData.status).to.eql(0);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sessionID}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ip}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ip",
+								"value": "{{admin-ip}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"interval\": 7200,\n        \"ChosenModels\": [],\n        \"modelParameterMap\": [],\n        \"blacklist\": [\n            {\n                \"type\": 1,\n                \"value\": []\n            },\n            {\n                \"type\": 2,\n                \"value\": []\n            },\n            {\n                \"type\": 3,\n                \"value\": []\n            },\n            {\n                \"type\": 4,\n                \"value\": []\n            },\n            {\n                \"type\": 5,\n                \"value\": []\n            }\n        ],\n        \"topN\": 0,\n        \"version\": 0\n    }"
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/configurations/itmConfigs/ers",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"devices",
+								"postman-test",
+								"configurations",
+								"itmConfigs",
+								"ers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.4.16get conf-versions",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c6c07a13-7a7a-4c89-9226-12523809e218",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json()",
+									"    pm.expect(jsonData.status).to.eql(0);",
+									"    pm.expect(jsonData.version).to.eql({",
+									"        \"ers\": 0,",
+									"        \"ars\": 0,",
+									"        \"mrs\": 1",
+									"    });",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sessionID}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ip}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ip",
+								"value": "{{admin-ip}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/configurations/itmConfigs/versions",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"devices",
+								"postman-test",
+								"configurations",
+								"itmConfigs",
+								"versions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "views003.py",
+			"item": [
+				{
+					"name": "3.1.1upload files",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8e276639-0c4b-4daa-8fe0-ade767ab1107",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json()",
+									"    pm.expect(jsonData.status).to.eql(1);",
+									"    // pm.response.to.have.jsonBody(\"resourceName\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sessionID}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ip}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "ip",
+								"value": "{{admin-ip}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "filename",
+									"type": "file",
+									"src": ""
+								}
+							]
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/upload/files/",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"upload",
+								"files",
+								""
+							]
+						},
+						"description": "Upload files."
+					},
+					"response": []
+				},
+				{
+					"name": "3.2.1download files",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "73bf78d4-7255-4e89-bc71-a35e9b3820fd",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json()",
+									"    pm.expect(jsonData.status).to.eql(0);",
+									"    pm.expect(jsonData.download_list).to.eql([",
+									"        \"password_error.zip\",",
+									"        \"json_error.zip\",",
+									"        \"bif_error.zip\",",
+									"        \"ers_custom_models.zip\",",
+									"        \"readme.txt\",",
+									"        \"trojan_of_adylkuzz.zip\"",
+									"    ]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sessionID}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ip}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "ip",
+								"value": "{{admin-ip}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/download/files/",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"download",
+								"files",
+								""
+							]
+						},
+						"description": "Downpload files."
+					},
+					"response": []
+				},
+				{
+					"name": "3.2.2download files readme.txt",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "eda9a19b-b6af-472b-8352-0914ea8fbd10",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"})",
+									"",
+									"pm.test(\"Check file\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"# Download file\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sessionID}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ip}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "ip",
+								"value": "{{admin-ip}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/download/files/readme.txt",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"download",
+								"files",
+								"readme.txt"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "views004.py",
+			"item": [
+				{
+					"name": "4.1.1get ers models",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0c3ccd12-5d1d-4b5a-b488-e45dccb71d46",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json()",
+									"    pm.expect(jsonData.status).to.eql(0);",
+									"    pm.response.to.have.jsonBody(\"version\");",
+									"    pm.response.to.have.jsonBody(\"ersModels\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sessionID}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ip}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "ip",
+								"value": "{{admin-ip}}",
+								"type": "text"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/devices/{{dev-deviceID}}/models/ers",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"devices",
+								"{{dev-deviceID}}",
+								"models",
+								"ers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4.1.2get ers models version",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0c3ccd12-5d1d-4b5a-b488-e45dccb71d46",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json()",
+									"    pm.expect(jsonData.status).to.eql(0);",
+									"    pm.response.to.have.jsonBody(\"version\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sessionID}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ip}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "ip",
+								"value": "{{admin-ip}}",
+								"type": "text"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/devices/{{dev-deviceID}}/models/ers/version",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"devices",
+								"{{dev-deviceID}}",
+								"models",
+								"ers",
+								"version"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4.1.2upload custom er models",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "88cf914e-f534-414d-9f7a-35c7a21e45ad",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json()",
+									"    pm.expect(jsonData.status).to.eql(1);",
+									"    // pm.response.to.have.jsonBody(\"resourceName\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sessionID}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ip}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "ip",
+								"value": "{{admin-ip}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "filename",
+									"type": "file",
+									"src": ""
+								}
+							]
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/models/ers",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"devices",
+								"postman-test",
+								"models",
+								"ers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4.1.3delete custom ers models",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7bab4d73-8f3b-441c-be97-35e4c1f19db8",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json()",
+									"    pm.expect(jsonData.status).to.eql(0);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sessionID}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ip}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "ip",
+								"value": "{{admin-ip}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"modelID_list\":[\"daff19f5-6309-4ea0-aaac-8daefde3b036\"]}"
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/models/ers",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"devices",
+								"postman-test",
+								"models",
+								"ers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4.2.1get mrs tasks",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "772241af-eae4-4f82-8bf7-37e2f799523e",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.status).to.eql(0);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sessionID}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ip}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ip",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/tasks/mrs",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"devices",
+								"postman-test",
+								"tasks",
+								"mrs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4.2.2update mrs task status",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "772241af-eae4-4f82-8bf7-37e2f799523e",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.status).to.eql(0);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sessionID}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ip}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ip",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"chosenGroups\": [],\r\n\t\"action\": 5\r\n}"
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/devices/postman-test/tasks/mrs/9210b20b-7a11-804a-beec-7d59427cb53c",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"devices",
+								"postman-test",
+								"tasks",
+								"mrs",
+								"9210b20b-7a11-804a-beec-7d59427cb53c"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4.3.1get eas anomaly",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "721b8508-90ec-492c-b4a3-749c858d5469",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json()",
+									"    pm.expect(jsonData.status).to.eql(0);",
+									"    pm.response.to.have.jsonBody(\"d4805d42-431d-4c59-b4b6-d28fb7735955\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sessionID}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ip}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "ip",
+								"value": "{{admin-ip}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/devices/{{dev-deviceID}}/anomalies/d4805d42-431d-4c59-b4b6-d28fb7735955",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"devices",
+								"{{dev-deviceID}}",
+								"anomalies",
+								"d4805d42-431d-4c59-b4b6-d28fb7735955"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4.4.1get anomaly parameters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "727c9042-3afe-4e82-9ce0-fdd29757572b",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json()",
+									"    pm.expect(jsonData.status).to.eql(0);",
+									"    pm.response.to.have.jsonBody(\"timestamp\");",
+									"    pm.response.to.have.jsonBody(\"version\");",
+									"    pm.response.to.have.jsonBody(\"parameters\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sessionID}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ip}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "ip",
+								"value": "{{admin-ip}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/devices/{{dev-deviceID}}/eas/parameters",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"devices",
+								"{{dev-deviceID}}",
+								"eas",
+								"parameters"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4.4.2update anomaly parameters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "df71dda5-77d3-4442-bb9b-d4d8e872e9ab",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json()",
+									"    pm.expect(jsonData.status).to.eql(0);",
+									"    pm.expect(jsonData.updated).to.eql(false);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sessionID}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ip}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "ip",
+								"value": "{{admin-ip}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"parameters\" : {\r\n    \"lian-test-postman\": {\r\n            \"name\": {\r\n                \"zh\": \"隐写工具\",\r\n                \"en\": \"隐写工具\"\r\n            },\r\n            \"description\": {\r\n                \"zh\": \"设置隐写工具，支持多个进程添加，英文逗号分隔；如JSteg.exe\",\r\n                \"en\": \"设置隐写工具，支持多个进程添加，英文逗号分隔；如JSteg.exe\"\r\n            },\r\n            \"type\": \"user-set\",\r\n            \"inputType\": 1,\r\n            \"values\": [\r\n                \"JSteg\",\r\n                \"JPHide\",\r\n                \"OutGuess\",\r\n                \"Invisible Secrets\",\r\n                \"F5\",\r\n                \"appendX\",\r\n                \"Camouflage\",\r\n                \"xiao_steg\",\r\n                \"stgp\",\r\n                \"picsel\",\r\n                \"openstego\",\r\n                \"imagesteg\"\r\n            ]\r\n        },\r\n        \"d18b6d08-6b0f-4f18-b099-58af07963c2b\": {\r\n            \"name\": {\r\n                \"zh\": \"工作时间\",\r\n                \"en\": \"工作时间\"\r\n            },\r\n            \"description\": {\r\n                \"zh\": \"设置工作时间\",\r\n                \"en\": \"设置工作时间\"\r\n            },\r\n            \"type\": \"user-set\",\r\n            \"inputType\": 2,\r\n            \"values\": [\r\n                {\r\n                    \"weekday\": [\r\n                        \"Mon\",\r\n                        \"Tue\",\r\n                        \"Wes\",\r\n                        \"Thu\",\r\n                        \"Fri\"\r\n                    ],\r\n                    \"working_hours\": [\r\n                        \"10:00\",\r\n                        \"18:00\"\r\n                    ]\r\n                }\r\n            ]\r\n        }\r\n}\r\n\r\n}"
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/devices/{{dev-deviceID}}/eas/parameters",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"devices",
+								"{{dev-deviceID}}",
+								"eas",
+								"parameters"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "views005.py",
+			"item": [
+				{
+					"name": "5.1.1get all scores",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dcfde636-a5b1-4372-9774-1ad21ebea7ca",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json()",
+									"    pm.expect(jsonData.status).to.eql(0);",
+									"    pm.response.to.have.jsonBody(\"mrsScores\");",
+									"    pm.response.to.have.jsonBody(\"riskLevel\");",
+									"    pm.response.to.have.jsonBody(\"arsScores\");",
+									"    pm.response.to.have.jsonBody(\"ersScores\");",
+									"    pm.response.to.have.jsonBody(\"weights\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sessionID}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ip}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ip",
+								"value": "{{admin-ip}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/devices/{{dev-deviceID}}/scores",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"devices",
+								"{{dev-deviceID}}",
+								"scores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "5.1.2get mrs scores",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dcfde636-a5b1-4372-9774-1ad21ebea7ca",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json()",
+									"    pm.expect(jsonData.status).to.eql(0);",
+									"    pm.response.to.have.jsonBody(\"mrsScores\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sessionID}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ip}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ip",
+								"value": "{{admin-ip}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/devices/{{dev-deviceID}}/scores/mrsScores",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"devices",
+								"{{dev-deviceID}}",
+								"scores",
+								"mrsScores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "5.1.3get ars scores",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dcfde636-a5b1-4372-9774-1ad21ebea7ca",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json()",
+									"    pm.expect(jsonData.status).to.eql(0);",
+									"    pm.response.to.have.jsonBody(\"arsScores\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sessionID}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ip}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ip",
+								"value": "{{admin-ip}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/devices/{{dev-deviceID}}/scores/arsScores",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"devices",
+								"{{dev-deviceID}}",
+								"scores",
+								"arsScores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "5.1.4get ers scores",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dcfde636-a5b1-4372-9774-1ad21ebea7ca",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json()",
+									"    pm.expect(jsonData.status).to.eql(0);",
+									"    pm.response.to.have.jsonBody(\"ersScores\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sessionID}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ip}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ip",
+								"value": "{{admin-ip}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/devices/{{dev-deviceID}}/scores/ersScores",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"devices",
+								"{{dev-deviceID}}",
+								"scores",
+								"ersScores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "5.1.5get riskLevel scores",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dcfde636-a5b1-4372-9774-1ad21ebea7ca",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json()",
+									"    pm.expect(jsonData.status).to.eql(0);",
+									"    pm.response.to.have.jsonBody(\"riskLevel\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sessionID}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ip}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ip",
+								"value": "{{admin-ip}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/devices/{{dev-deviceID}}/scores/riskLevel",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"devices",
+								"{{dev-deviceID}}",
+								"scores",
+								"riskLevel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "5.1.6get scores weights",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dcfde636-a5b1-4372-9774-1ad21ebea7ca",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json()",
+									"    pm.expect(jsonData.status).to.eql(0);",
+									"    pm.response.to.have.jsonBody(\"weights\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sessionID}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ip}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ip",
+								"value": "{{admin-ip}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/devices/{{dev-deviceID}}/scores/weights",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"devices",
+								"{{dev-deviceID}}",
+								"scores",
+								"weights"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "5.2.1data info for threat",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4adce71c-b625-416c-bcd4-6eb6237c32a0",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json()",
+									"    pm.expect(jsonData.status).to.eql(0);",
+									"    pm.response.to.have.jsonBody(\"threats\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sessionID}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ip}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ip",
+								"value": "{{admin-ip}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/devices/{{dev-deviceID}}/data/info",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"devices",
+								"{{dev-deviceID}}",
+								"data",
+								"info"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "views006.py",
+			"item": [
+				{
+					"name": "6.1.1xrs forensics for all ers models",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9934b47e-2b04-47e4-b22f-ead538ae5b49",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json()",
+									"    pm.expect(jsonData.status).to.eql(0);",
+									"    pm.response.to.have.jsonBody(\"badf93c0-12aa-4f68-abf2-aff067bf15ca\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sessionID}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ip}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "ip",
+								"value": "{{admin-ip}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"timestamp\": 1551261600,\r\n    \"user\": \"0bef754f-f39d-9444-9b9a-3abd8b3be69b\",\r\n    \"pageSize\": 1\r\n}"
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/devices/{{dev-deviceID}}/forensics/ers",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"devices",
+								"{{dev-deviceID}}",
+								"forensics",
+								"ers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "6.1.2xrs forensics for ers model",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9934b47e-2b04-47e4-b22f-ead538ae5b49",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json()",
+									"    pm.expect(jsonData.status).to.eql(0);",
+									"    pm.response.to.have.jsonBody(\"badf93c0-12aa-4f68-abf2-aff067bf15ca\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sessionID}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ip}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "ip",
+								"value": "{{admin-ip}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"timestamp\": 1551261600,\r\n    \"user\": \"0bef754f-f39d-9444-9b9a-3abd8b3be69b\",\r\n    \"pageSize\": 1\r\n}"
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/devices/{{dev-deviceID}}/forensics/ers/model/badf93c0-12aa-4f68-abf2-aff067bf15ca",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"devices",
+								"{{dev-deviceID}}",
+								"forensics",
+								"ers",
+								"model",
+								"badf93c0-12aa-4f68-abf2-aff067bf15ca"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "6.1.3xrs forensics for ers param",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "758d3d54-4709-4acc-aeec-81e6cb4c30af",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json()",
+									"    pm.expect(jsonData.status).to.eql(0);",
+									"    pm.response.to.have.jsonBody(\"2dbacf05-1cad-46dd-ad94-e0f7b971b79a\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sessionID}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ip}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "ip",
+								"value": "{{admin-ip}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"timestamp\": 1551261600,\r\n    \"user\": \"0bef754f-f39d-9444-9b9a-3abd8b3be69b\",\r\n    \"pageSize\": 1\r\n}"
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/devices/{{dev-deviceID}}/forensics/ers/param/2dbacf05-1cad-46dd-ad94-e0f7b971b79a",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"devices",
+								"{{dev-deviceID}}",
+								"forensics",
+								"ers",
+								"param",
+								"2dbacf05-1cad-46dd-ad94-e0f7b971b79a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "6.1.4xrs forensics for eas threat",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ac7b44a3-787d-451b-8231-c208812160be",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json()",
+									"    pm.expect(jsonData.status).to.eql(0);",
+									"    pm.response.to.have.jsonBody(\"0ca37e75-246a-4beb-8e26-af6ad0c2604a\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sessionID}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ip}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "ip",
+								"type": "text",
+								"value": "{{admin-ip}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"timestamp\": 1550732400,\r\n    \"user\": \"skyguardmis.com\\\\renhaijian\",\r\n    \"pageSize\": 1\r\n}"
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/devices/{{dev-deviceID}}/forensics/eas/threat/0ca37e75-246a-4beb-8e26-af6ad0c2604a",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"devices",
+								"{{dev-deviceID}}",
+								"forensics",
+								"eas",
+								"threat",
+								"0ca37e75-246a-4beb-8e26-af6ad0c2604a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "6.1.5xrs forensics for eas anomalyGroups",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "bd85342c-57f3-4fb7-9b9f-24acec1864a1",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json()",
+									"    pm.expect(jsonData.status).to.eql(0);",
+									"    pm.response.to.have.jsonBody(\"a318e1e5-dbc5-40c9-900e-a59ca5d716ea\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sessionID}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ip}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "ip",
+								"value": "{{admin-ip}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"timestamp\": 1550732400,\r\n    \"user\": \"skyguardmis.com\\\\renhaijian\",\r\n    \"pageSize\": 1\r\n}"
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/devices/{{dev-deviceID}}/forensics/eas/anomalyGroup/a318e1e5-dbc5-40c9-900e-a59ca5d716ea",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"devices",
+								"{{dev-deviceID}}",
+								"forensics",
+								"eas",
+								"anomalyGroup",
+								"a318e1e5-dbc5-40c9-900e-a59ca5d716ea"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "6.1.6xrs fiorensics for eas anomaly",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "cb281f24-5719-4637-af91-2d8e8f9a08fe",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json()",
+									"    pm.expect(jsonData.status).to.eql(0);",
+									"    // pm.response.to.have.jsonBody(\"badf93c0-12aa-4f68-abf2-aff067bf15ca\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sessionID}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ip}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "ip",
+								"value": "{{admin-ip}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"timestamp\": 1550732400,\r\n    \"user\": \"skyguardmis.com\\\\renhaijian\",\r\n    \"pageSize\": 1\r\n}"
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/devices/{{dev-deviceID}}/forensics/eas/anomaly/b87aef5c-f84e-4dc6-93f6-8c73ead9344a",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"devices",
+								"{{dev-deviceID}}",
+								"forensics",
+								"eas",
+								"anomaly",
+								"b87aef5c-f84e-4dc6-93f6-8c73ead9344a"
+							]
+						},
+						"description": "参数:\nfc1e5c7c-612a-45fb-8f46-b276e7fe95f5\nd4805d42-431d-4c59-b4b6-d28fb7735955"
+					},
+					"response": []
+				},
+				{
+					"name": "6.2.1 ars all forensics",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "cb281f24-5719-4637-af91-2d8e8f9a08fe",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json()",
+									"    pm.expect(jsonData.status).to.eql(0);",
+									"    pm.response.to.have.jsonBody(\"ars.network\");",
+									"    pm.response.to.have.jsonBody(\"ars.protocols\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sessionID}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ip}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "ip",
+								"value": "{{admin-ip}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"timestamp\": 1550732400,\r\n    \"user\": \"skyguardmis.com\\\\renhaijian\",\r\n    \"pageSize\": 1\r\n}"
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/devices/{{dev-deviceID}}/forensics/ars",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"devices",
+								"{{dev-deviceID}}",
+								"forensics",
+								"ars"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "6.2.2ars protocols forensics",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "cb281f24-5719-4637-af91-2d8e8f9a08fe",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json()",
+									"    pm.expect(jsonData.status).to.eql(0);",
+									"    pm.response.to.have.jsonBody(\"protocols\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sessionID}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ip}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "ip",
+								"value": "{{admin-ip}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"timestamp\": 1550732400,\r\n    \"user\": \"skyguardmis.com\\\\renhaijian\",\r\n    \"pageSize\": 1\r\n}"
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/devices/{{dev-deviceID}}/forensics/ars/protocols",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"devices",
+								"{{dev-deviceID}}",
+								"forensics",
+								"ars",
+								"protocols"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "6.2.3ars network forensics",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "cb281f24-5719-4637-af91-2d8e8f9a08fe",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json()",
+									"    pm.expect(jsonData.status).to.eql(0);",
+									"    pm.response.to.have.jsonBody(\"network\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sessionID}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ip}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "ip",
+								"type": "text",
+								"value": "{{admin-ip}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"timestamp\": 1550732400,\r\n    \"user\": \"skyguardmis.com\\\\renhaijian\",\r\n    \"pageSize\": 1\r\n}"
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/devices/{{dev-deviceID}}/forensics/ars/network",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"devices",
+								"{{dev-deviceID}}",
+								"forensics",
+								"ars",
+								"network"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "6.3.1eas anomalies summary",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4568578e-349a-4155-bddf-c9a304b9ab17",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json()",
+									"    pm.expect(jsonData.status).to.eql(0);",
+									"    pm.response.to.have.jsonBody(\"_all\");",
+									"    pm.response.to.have.jsonBody(\"hits\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sessionID}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ip}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "ip",
+								"type": "text",
+								"value": "{{admin-ip}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"startTimestamp\": 1549764000,\n    \"endTimestamp\": 1551492000,\n    \"pageSize\": 3,\n    \"page\": 1,\n    \"filter\": [\n        {\n            \"type\": 3,\n            \"value\": [\n                \"*lianpengcheng\",\n                \"*\"\n            ]\n        },\n        {\n            \"type\": 5,\n            \"value\": [\n                \"f023d38e-27ed-3443-b3b5-695556fb21e6\"\n            ]\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/devices/{{dev-deviceID}}/anomaliesSummary/eas",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"devices",
+								"{{dev-deviceID}}",
+								"anomaliesSummary",
+								"eas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "6.3.2eas anomaly summary",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3e2828a0-a487-419e-b38f-cc2acd9410dd",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json()",
+									"    pm.expect(jsonData.status).to.eql(0);",
+									"    pm.response.to.have.jsonBody(\"23787c99-4b94-4514-a38e-f753b8f47e57\");",
+									"    pm.response.to.have.jsonBody(\"hits\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sessionID}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ip}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "ip",
+								"value": "{{admin-ip}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"startTimestamp\": 1516536000,\n    \"endTimestamp\": 1571659200,\n    \"pageSize\": 5,\n    \"page\": 1,\n    \"filter\":[{\"type\":3, \"value\":[\"*lianpengcheng\", \"*zhaomingjun\"]},{\n            \"type\": 5,\n            \"value\": [\n                \"f023d38e-27ed-3443-b3b5-695556fb21e6\"\n            ]\n        }]\n}"
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/devices/{{dev-deviceID}}/anomaliesSummary/eas/23787c99-4b94-4514-a38e-f753b8f47e57",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"devices",
+								"{{dev-deviceID}}",
+								"anomaliesSummary",
+								"eas",
+								"23787c99-4b94-4514-a38e-f753b8f47e57"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "6.4.1eas report for all anomalies",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "24a1a930-5018-4981-b268-5f2da8ad09a1",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json()",
+									"    pm.expect(jsonData.status).to.eql(0);",
+									"    pm.response.to.have.jsonBody(\"_all\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sessionID}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ip}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "ip",
+								"type": "text",
+								"value": "{{admin-ip}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"startTimestamp\": 1550419200,\n    \"endTimestamp\": 1550991600,\n    \"top\": 5,\n    \"filter\": [\n        {\n            \"type\": 3,\n            \"value\": [\n                \"*\"\n            ]\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/devices/{{dev-deviceID}}/report/eas",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"devices",
+								"{{dev-deviceID}}",
+								"report",
+								"eas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "6.4.2eas report for anomaly",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c862d65a-312d-44be-8980-92c691b0690b",
+								"exec": [
+									"pm.test(\"Response code is 200 and have a body\", function(){",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json",
+									"})",
+									"",
+									"",
+									"pm.test(\"Chech json\", function () {",
+									"    var jsonData = pm.response.json()",
+									"    pm.expect(jsonData.status).to.eql(0);",
+									"    pm.response.to.have.jsonBody(\"23787c99-4b94-4514-a38e-f753b8f47e57\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{sessionID}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ip}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "ip",
+								"type": "text",
+								"value": "{{admin-ip}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"startTimestamp\": 1550419200,\n    \"endTimestamp\": 1550991600,\n    \"top\": 5,\n    \"filter\": [\n        {\n            \"type\": 3,\n            \"value\": [\n                \"*\"\n            ]\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "http://172.22.118.99:8080/ITMCP/v1/devices/{{dev-deviceID}}/report/eas/23787c99-4b94-4514-a38e-f753b8f47e57",
+							"protocol": "http",
+							"host": [
+								"172",
+								"22",
+								"118",
+								"99"
+							],
+							"port": "8080",
+							"path": [
+								"ITMCP",
+								"v1",
+								"devices",
+								"{{dev-deviceID}}",
+								"report",
+								"eas",
+								"23787c99-4b94-4514-a38e-f753b8f47e57"
+							]
+						},
+						"description": "参数:\n\tfc1e5c7c-612a-45fb-8f46-b276e7fe95f5"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

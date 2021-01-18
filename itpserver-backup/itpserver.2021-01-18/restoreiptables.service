@@ -1,0 +1,10 @@
+[Unit]
+After=docker.service
+Requires=docker.service
+BindsTo=docker.service
+
+[Service]
+ExecStart=/bin/bash /opt/skyguard/itpcli/iptables-restore.sh
+
+[Install]
+WantedBy=default.target

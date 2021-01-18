@@ -1,0 +1,17 @@
+[Unit]
+Description=ITP WebServer
+After=syslog.target
+
+[Service]
+ExecStart=/home/ubuntu/.virtualenvs/py27/bin/uwsgi --ini /home/ubuntu/workspace/skyguard/itpserver/bean/uwsgi_test.ini
+RuntimeDirectory=/home/ubuntu/workspace/skyguard/itpserver/bean/
+WorkingDirectory=/home/ubuntu/workspace/skyguard/itpserver/bean/
+Restart=always
+KillSignal=SIGQUIT
+Type=notify
+StandardError=syslog
+NotifyAccess=all
+PIDFile=/var/run/itpserver.pid
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,580 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>ITPServer Automated Test Report EN</title>
+    <meta content="HTMLTestRunner 0.8.3" name="generator" />
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+</head>
+
+<body style="font-family: verdana, arial, helvetica, sans-serif; font-size: 80%">
+    <script language="javascript" type="text/javascript">
+    <!--
+    output_list = Array();
+
+    /* level - 0:Summary; 1:Failed; 2:All */
+    function showCase(level) {
+        trs = document.getElementsByTagName("tr");
+        for (var i = 0; i < trs.length; i++) {
+            tr = trs[i];
+            id = tr.id;
+            if (id.substr(0, 2) == 'ft') {
+                if (level < 1) {
+                    tr.className = 'hiddenRow';
+                } else {
+                    tr.className = '';
+                }
+            }
+            if (id.substr(0, 2) == 'pt') {
+                if (level > 1) {
+                    tr.className = '';
+                } else {
+                    tr.className = 'hiddenRow';
+                }
+            }
+            if (id.substr(0, 2) == 'st') {
+                if (level > 1) { tr.className = ''; } else { tr.className = 'hiddenRow'; }
+            }
+        }
+    }
+
+    function showClassDetail(cid, count) {
+        var id_list = Array(count);
+        var toHide = 1;
+        for (var i = 0; i < count; i++) {
+            tid0 = 't' + cid.substr(1) + '.' + (i + 1);
+            tid = 'f' + tid0;
+            tr = document.getElementById(tid);
+            if (!tr) {
+                tid = 'p' + tid0;
+                tr = document.getElementById(tid);
+            }
+            if (!tr) {
+                tid = 's' + tid0;
+                tr = document.getElementById(tid);
+            }
+            id_list[i] = tid;
+            if (tr.className) {
+                toHide = 0;
+            }
+
+        }
+        for (var i = 0; i < count; i++) {
+            tid = id_list[i];
+            if (toHide) {
+                document.getElementById('div_' + tid).style.display = 'none'
+                document.getElementById(tid).className = 'hiddenRow';
+            } else {
+                document.getElementById(tid).className = '';
+            }
+        }
+    }
+
+
+    function showTestDetail(div_id) {
+        var details_div = document.getElementById(div_id)
+        var displayState = details_div.style.display
+        // alert(displayState)
+        if (displayState != 'block') {
+            displayState = 'block'
+            details_div.style.display = 'block'
+        } else {
+            details_div.style.display = 'none'
+        }
+    }
+
+
+    function html_escape(s) {
+        s = s.replace(/&/g, '&');
+        s = s.replace(/</g, '<');
+        s = s.replace(/>/g, '>');
+        return s;
+    }
+
+    /* obsoleted by detail in <div>
+    function showOutput(id, name) {
+        var w = window.open("", //url
+                        name,
+                        "resizable,scrollbars,status,width=800,height=450");
+        d = w.document;
+        d.write("<pre>");
+        d.write(html_escape(output_list[id]));
+        d.write("\n");
+        d.write("<a href='javascript:window.close()'>close</a>\n");
+        d.write("</pre>\n");
+        d.close();
+    }
+    */
+    -->
+    </script>
+    <div class="heading" style="margin-top: 0; margin-bottom: 1ex">
+        <h1 style="font-size: 16pt; color: gray">ITPServer自动化测试报告_EN</h1>
+        <p class="attribute" style="margin-top: 1ex; margin-bottom: 0"><strong>Start Time:</strong> 2018-06-15 16:37:16</p>
+        <p class="attribute" style="margin-top: 1ex; margin-bottom: 0"><strong>Duration:</strong> 0:00:02.986383</p>
+        <p class="attribute" style="margin-top: 1ex; margin-bottom: 0"><strong>Status:</strong> Pass 24</p>
+        <p class="description" style="margin-top: 4ex; margin-bottom: 6ex">用例执行情况：</p>
+    </div>
+    <p id="show_detail_line">Show
+        <a href="javascript:showCase(0)">Summary</a>
+        <a href="javascript:showCase(1)">Failed</a>
+        <a href="javascript:showCase(2)">All</a>
+    </p>
+    <table id="result_table" style="font-size: 100%; width: 80%; border-collapse: collapse; border: 1px solid #777">
+        <colgroup>
+            <col align="left" />
+            <col align="right" />
+            <col align="right" />
+            <col align="right" />
+            <col align="right" />
+            <col align="right" />
+        </colgroup>
+        <tr id="header_row" style="font-weight: bold; color: white; background-color: #777">
+            <td style="border: 1px solid #777; padding: 2px">Test Group/Test case</td>
+            <td style="border: 1px solid #777; padding: 2px">Description</td>
+            <td style="border: 1px solid #777; padding: 2px">RunTime</td>
+            <td style="border: 1px solid #777; padding: 2px">Count</td>
+            <td style="border: 1px solid #777; padding: 2px">Pass</td>
+            <td style="border: 1px solid #777; padding: 2px">Fail</td>
+            <td style="border: 1px solid #777; padding: 2px">Error</td>
+            <td style="border: 1px solid #777; padding: 2px">Skip</td>
+            <td style="border: 1px solid #777; padding: 2px">View</td>
+            <td style="border: 1px solid #777; padding: 2px">Screenshot</td>
+        </tr>
+        <tr class="passClass" style="background-color: #6c6">
+            <td style="border: 1px solid #777; padding: 2px">APITestCase</td>
+            <td style="border: 1px solid #777; padding: 2px">API Test Case</td>
+            <td style="border: 1px solid #777; padding: 2px">2.9119 s</td>
+            <td style="border: 1px solid #777; padding: 2px">24</td>
+            <td style="border: 1px solid #777; padding: 2px">24</td>
+            <td style="border: 1px solid #777; padding: 2px">0</td>
+            <td style="border: 1px solid #777; padding: 2px">0</td>
+            <td style="border: 1px solid #777; padding: 2px">0</td>
+            <td style="border: 1px solid #777; padding: 2px"> <a href="javascript:showClassDetail('c1',24)">Detail</a></td>
+            <td style="border: 1px solid #777; padding: 2px"> </td>
+        </tr>
+        <tr class="hiddenRow" id="pt1.1" style="display: none">
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">test_check_in</div>
+            </td>
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">
+                    check in
+                </div>
+            </td>
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">0 s</div>
+            </td>
+            <td align="center" colspan="6" style="border: 1px solid #777; padding: 2px">pass</td>
+            <td align="center" style="border: 1px solid #777; padding: 2px">
+                <a hidden="hidden" href="">picture_shot</a>
+            </td>
+        </tr>
+        <tr class="hiddenRow" id="pt1.2" style="display: none">
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">test_keeplive</div>
+            </td>
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">
+                    keep live
+                </div>
+            </td>
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">0.5038 s</div>
+            </td>
+            <td align="center" colspan="6" style="border: 1px solid #777; padding: 2px">pass</td>
+            <td align="center" style="border: 1px solid #777; padding: 2px">
+                <a hidden="hidden" href="">picture_shot</a>
+            </td>
+        </tr>
+        <tr class="hiddenRow" id="pt1.3" style="display: none">
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">test_check_out</div>
+            </td>
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">
+                    check out
+                </div>
+            </td>
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">0.0638 s</div>
+            </td>
+            <td align="center" colspan="6" style="border: 1px solid #777; padding: 2px">pass</td>
+            <td align="center" style="border: 1px solid #777; padding: 2px">
+                <a hidden="hidden" href="">picture_shot</a>
+            </td>
+        </tr>
+        <tr class="hiddenRow" id="pt1.4" style="display: none">
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">test_register</div>
+            </td>
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">
+                    register
+                </div>
+            </td>
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">0.0749 s</div>
+            </td>
+            <td align="center" colspan="6" style="border: 1px solid #777; padding: 2px">pass</td>
+            <td align="center" style="border: 1px solid #777; padding: 2px">
+                <a hidden="hidden" href="">picture_shot</a>
+            </td>
+        </tr>
+        <tr class="hiddenRow" id="pt1.5" style="display: none">
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">test_disregister</div>
+            </td>
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">
+                    disregister
+                </div>
+            </td>
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">0.6047 s</div>
+            </td>
+            <td align="center" colspan="6" style="border: 1px solid #777; padding: 2px">pass</td>
+            <td align="center" style="border: 1px solid #777; padding: 2px">
+                <a hidden="hidden" href="">picture_shot</a>
+            </td>
+        </tr>
+        <tr class="hiddenRow" id="pt1.6" style="display: none">
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">test_configuration</div>
+            </td>
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">
+                    configuration
+                </div>
+            </td>
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">0.0413 s</div>
+            </td>
+            <td align="center" colspan="6" style="border: 1px solid #777; padding: 2px">pass</td>
+            <td align="center" style="border: 1px solid #777; padding: 2px">
+                <a hidden="hidden" href="">picture_shot</a>
+            </td>
+        </tr>
+        <tr class="hiddenRow" id="pt1.7" style="display: none">
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">test_get_conf_ars</div>
+            </td>
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">
+                    get conf ars
+                </div>
+            </td>
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">0.0671 s</div>
+            </td>
+            <td align="center" colspan="6" style="border: 1px solid #777; padding: 2px">pass</td>
+            <td align="center" style="border: 1px solid #777; padding: 2px">
+                <a hidden="hidden" href="">picture_shot</a>
+            </td>
+        </tr>
+        <tr class="hiddenRow" id="pt1.8" style="display: none">
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">test_get_conf_mrs</div>
+            </td>
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">
+                    get conf mrs
+                </div>
+            </td>
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">0.0606 s</div>
+            </td>
+            <td align="center" colspan="6" style="border: 1px solid #777; padding: 2px">pass</td>
+            <td align="center" style="border: 1px solid #777; padding: 2px">
+                <a hidden="hidden" href="">picture_shot</a>
+            </td>
+        </tr>
+        <tr class="hiddenRow" id="pt1.9" style="display: none">
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">test_get_conf_ers</div>
+            </td>
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">
+                    get conf ers
+                </div>
+            </td>
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">0.0608 s</div>
+            </td>
+            <td align="center" colspan="6" style="border: 1px solid #777; padding: 2px">pass</td>
+            <td align="center" style="border: 1px solid #777; padding: 2px">
+                <a hidden="hidden" href="">picture_shot</a>
+            </td>
+        </tr>
+        <tr class="hiddenRow" id="pt1.10" style="display: none">
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">test_get_conf_versions</div>
+            </td>
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">
+                    get conf versions
+                </div>
+            </td>
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">0.0646 s</div>
+            </td>
+            <td align="center" colspan="6" style="border: 1px solid #777; padding: 2px">pass</td>
+            <td align="center" style="border: 1px solid #777; padding: 2px">
+                <a hidden="hidden" href="">picture_shot</a>
+            </td>
+        </tr>
+        <tr class="hiddenRow" id="pt1.11" style="display: none">
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">test_post_conf_ars</div>
+            </td>
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">
+                    post conf ars
+                </div>
+            </td>
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">0.0623 s</div>
+            </td>
+            <td align="center" colspan="6" style="border: 1px solid #777; padding: 2px">pass</td>
+            <td align="center" style="border: 1px solid #777; padding: 2px">
+                <a hidden="hidden" href="">picture_shot</a>
+            </td>
+        </tr>
+        <tr class="hiddenRow" id="pt1.12" style="display: none">
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">test_post_conf_mrs</div>
+            </td>
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">
+                    post conf mrs
+                </div>
+            </td>
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">0.1452 s</div>
+            </td>
+            <td align="center" colspan="6" style="border: 1px solid #777; padding: 2px">pass</td>
+            <td align="center" style="border: 1px solid #777; padding: 2px">
+                <a hidden="hidden" href="">picture_shot</a>
+            </td>
+        </tr>
+        <tr class="hiddenRow" id="pt1.13" style="display: none">
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">test_post_conf_ers</div>
+            </td>
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">
+                    post conf ers
+                </div>
+            </td>
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">0.1493 s</div>
+            </td>
+            <td align="center" colspan="6" style="border: 1px solid #777; padding: 2px">pass</td>
+            <td align="center" style="border: 1px solid #777; padding: 2px">
+                <a hidden="hidden" href="">picture_shot</a>
+            </td>
+        </tr>
+        <tr class="hiddenRow" id="pt1.14" style="display: none">
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">test_post_balcklist_ars</div>
+            </td>
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">
+                    post conf ars
+                </div>
+            </td>
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">0.1545 s</div>
+            </td>
+            <td align="center" colspan="6" style="border: 1px solid #777; padding: 2px">pass</td>
+            <td align="center" style="border: 1px solid #777; padding: 2px">
+                <a hidden="hidden" href="">picture_shot</a>
+            </td>
+        </tr>
+        <tr class="hiddenRow" id="pt1.15" style="display: none">
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">test_post_balcklist_mrs</div>
+            </td>
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">
+                    post conf mrs
+                </div>
+            </td>
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">0.1032 s</div>
+            </td>
+            <td align="center" colspan="6" style="border: 1px solid #777; padding: 2px">pass</td>
+            <td align="center" style="border: 1px solid #777; padding: 2px">
+                <a hidden="hidden" href="">picture_shot</a>
+            </td>
+        </tr>
+        <tr class="hiddenRow" id="pt1.16" style="display: none">
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">test_post_balcklist_ers</div>
+            </td>
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">
+                    post conf ers
+                </div>
+            </td>
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">0.0917 s</div>
+            </td>
+            <td align="center" colspan="6" style="border: 1px solid #777; padding: 2px">pass</td>
+            <td align="center" style="border: 1px solid #777; padding: 2px">
+                <a hidden="hidden" href="">picture_shot</a>
+            </td>
+        </tr>
+        <tr class="hiddenRow" id="pt1.17" style="display: none">
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">test_x_scores</div>
+            </td>
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">
+                    x_scores
+                </div>
+            </td>
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">0.1031 s</div>
+            </td>
+            <td align="center" colspan="6" style="border: 1px solid #777; padding: 2px">pass</td>
+            <td align="center" style="border: 1px solid #777; padding: 2px">
+                <a hidden="hidden" href="">picture_shot</a>
+            </td>
+        </tr>
+        <tr class="hiddenRow" id="pt1.18" style="display: none">
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">test_ars_scores</div>
+            </td>
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">
+                    ars scores
+                </div>
+            </td>
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">0.0959 s</div>
+            </td>
+            <td align="center" colspan="6" style="border: 1px solid #777; padding: 2px">pass</td>
+            <td align="center" style="border: 1px solid #777; padding: 2px">
+                <a hidden="hidden" href="">picture_shot</a>
+            </td>
+        </tr>
+        <tr class="hiddenRow" id="pt1.19" style="display: none">
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">test_ers_scores</div>
+            </td>
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">
+                    ers scores
+                </div>
+            </td>
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">0.0815 s</div>
+            </td>
+            <td align="center" colspan="6" style="border: 1px solid #777; padding: 2px">pass</td>
+            <td align="center" style="border: 1px solid #777; padding: 2px">
+                <a hidden="hidden" href="">picture_shot</a>
+            </td>
+        </tr>
+        <tr class="hiddenRow" id="pt1.20" style="display: none">
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">test_mrs_scores</div>
+            </td>
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">
+                    mrs scores
+                </div>
+            </td>
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">0.0757 s</div>
+            </td>
+            <td align="center" colspan="6" style="border: 1px solid #777; padding: 2px">pass</td>
+            <td align="center" style="border: 1px solid #777; padding: 2px">
+                <a hidden="hidden" href="">picture_shot</a>
+            </td>
+        </tr>
+        <tr class="hiddenRow" id="pt1.21" style="display: none">
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">test_mrs_tasks</div>
+            </td>
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">
+                    mrs task
+                </div>
+            </td>
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">0.0676 s</div>
+            </td>
+            <td align="center" colspan="6" style="border: 1px solid #777; padding: 2px">pass</td>
+            <td align="center" style="border: 1px solid #777; padding: 2px">
+                <a hidden="hidden" href="">picture_shot</a>
+            </td>
+        </tr>
+        <tr class="hiddenRow" id="pt1.22" style="display: none">
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">test_tasks_status</div>
+            </td>
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">
+                    tasks status
+                </div>
+            </td>
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">0.0663 s</div>
+            </td>
+            <td align="center" colspan="6" style="border: 1px solid #777; padding: 2px">pass</td>
+            <td align="center" style="border: 1px solid #777; padding: 2px">
+                <a hidden="hidden" href="">picture_shot</a>
+            </td>
+        </tr>
+        <tr class="hiddenRow" id="pt1.23" style="display: none">
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">test_ers_models</div>
+            </td>
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">
+                    ers models
+                </div>
+            </td>
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">0.0739 s</div>
+            </td>
+            <td align="center" colspan="6" style="border: 1px solid #777; padding: 2px">pass</td>
+            <td align="center" style="border: 1px solid #777; padding: 2px">
+                <a hidden="hidden" href="">picture_shot</a>
+            </td>
+        </tr>
+        <tr class="hiddenRow" id="pt1.24" style="display: none">
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">test_ers_models_version</div>
+            </td>
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">
+                    ers models version
+                </div>
+            </td>
+            <td class="none" style="border: 1px solid #777; padding: 2px">
+                <div class="testcase" style="margin-left: 2em">0.1001 s</div>
+            </td>
+            <td align="center" colspan="6" style="border: 1px solid #777; padding: 2px">pass</td>
+            <td align="center" style="border: 1px solid #777; padding: 2px">
+                <a hidden="hidden" href="">picture_shot</a>
+            </td>
+        </tr>
+        <tr id="total_row" style="font-weight: bold">
+            <td style="border: 1px solid #777; padding: 2px">Total</td>
+            <td style="border: 1px solid #777; padding: 2px"> </td>
+            <td align="left" style="border: 1px solid #777; padding: 2px">2.9119 s</td>
+            <td style="border: 1px solid #777; padding: 2px">24</td>
+            <td style="border: 1px solid #777; padding: 2px">24</td>
+            <td style="border: 1px solid #777; padding: 2px">0</td>
+            <td style="border: 1px solid #777; padding: 2px">0</td>
+            <td style="border: 1px solid #777; padding: 2px">0</td>
+            <td style="border: 1px solid #777; padding: 2px"> </td>
+            <td style="border: 1px solid #777; padding: 2px"> </td>
+        </tr>
+    </table>
+    <div id="ending" style=""> </div>
+</body>
+
+</html>

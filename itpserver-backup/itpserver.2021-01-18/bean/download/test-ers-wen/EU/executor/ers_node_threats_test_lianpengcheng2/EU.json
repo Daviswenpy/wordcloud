@@ -1,0 +1,147 @@
+{
+    "name": "ers_node_threats_test_lianpengcheng2",
+    "uuid": "6a90d5e8-c967-3b2d-937f-f5572e49375e",
+    "version": 1,
+    "enable": true,
+    "parameter":{
+        "HISTDAYS": 7,
+        "WHITE_LIST": [],
+        "THREATS_TYPE": "external",
+        "AT_LEAST": 5,
+        "KEEP_CNT": 100,
+        "anomaly": {
+            "needConfig": false,
+            "forensics": {
+                "summary": {
+                    "template": {
+                        "en": [
+                            "Current User: %count% match(es)"
+                        ],
+                        "zh": [
+                            "当前用户：%count%个"
+                        ]
+                    }
+                },
+                "details": {
+                    "template": {
+                        "en": "%@timestamp% %orig_h% connect %resp_h% by %proto%, destination port: %resp_p%, connecting status: %conn_state%.",
+                        "zh": "%@timestamp% %orig_h%通过%proto%协议连接的IP地址为%resp_h%，目的端口为%resp_p%，连接状态为%conn_state%"
+                    },
+                    "type": "network"
+                },
+                "graphs": {
+                    "template": [
+                        {
+                            "variables": ["%timeseries%"],
+                            "order": "asc",
+                            "AxisInfo": {
+                                "XAxis": {
+                                    "data": "key",
+                                    "type": "timestamp"
+                                },
+                                "YAxis": {
+                                    "data": "doc_count",
+                                    "type": "number"
+                                }
+                            },
+                            "verticalAxis": {
+                                "en": "时序图",
+                                "zh": "时序图"
+                            },
+                            "type": 3,
+                            "horizontalAxis": {
+                                "en": "时序图",
+                                "zh": "时序图"
+                            },
+                            "agg_query": {
+                                "timeseries": {
+                                    "date_histogram": {
+                                        "field": "@timestamp",
+                                        "interval": "hour",
+                                        "min_doc_count": 1
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "variables": ["%histCnt%"],
+                            "order": "asc",
+                            "verticalAxis": {
+                                "en": "日计数",
+                                "zh": "日计数"
+                            },
+                            "AxisInfo": {
+                                "XAxis": {
+                                    "data": "key",
+                                    "type": "timestamp"
+                                },
+                                "YAxis": {
+                                    "data": "doc_count",
+                                    "type": "number"
+                                }
+                            },
+                            "type": 2,
+                            "horizontalAxis": {
+                                "en": "日计数",
+                                "zh": "日计数"
+                            },
+                            "agg_query": {
+                                "histCnt": {
+                                    "date_histogram": {
+                                        "field": "@timestamp",
+                                        "interval": "day",
+                                        "min_doc_count": 0,
+                                        "format": "yyyy-MM-dd"
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "variables": ["%tarinfo%"],
+                            "verticalAxis": {
+                                "en": "可疑外部连接统计",
+                                "zh": "可疑外部连接统计"
+                            },
+                            "order": "desc",
+                            "AxisInfo": {
+                                "XAxis": {
+                                    "data": "key",
+                                    "type": "string"
+                                },
+                                "YAxis": {
+                                    "data": "doc_count",
+                                    "type": "number"
+                                }
+                            },
+                            "type": 1,
+                            "horizontalAxis": {
+                                "en": "可疑外部连接统计",
+                                "zh": "可疑外部连接统计"
+                            },
+                            "agg_query": {
+                                "tarinfo": {
+                                    "terms": {
+                                        "field": "sourceIp",
+                                        "size": 10
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "tarinfo": [],
+                    "histCnt": [],
+                    "timeseries": []
+                }
+            },
+            "display": true,
+            "name": {
+                "en": "ers_node_threats_test_lianpengcheng2",
+                "zh": "ers_node_threats_test_lianpengcheng2"
+            },
+            "MappedPolicyID": "6a90d5e8-c967-3b2d-937f-f5572e49375e",
+            "type": 0,
+            "use_query": true,
+            "parameterUuid": []
+        }
+    }
+}
