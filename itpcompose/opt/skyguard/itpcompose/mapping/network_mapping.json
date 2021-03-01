@@ -1,0 +1,198 @@
+{
+    "template": "network-*",
+    "order":0,
+    "settings": {
+	"index.number_of_shards" : 1,
+        "index.number_of_replicas" : 0,
+        "index.refresh_interval" : "30s"
+    },
+    "mappings" : {
+      "_doc" : {
+        "properties" : {
+          "@timestamp" : {
+            "type" : "date"
+          },
+          "conn_state" : {
+            "type" : "text",
+            "fields" : {
+              "keyword" : {
+                "type" : "keyword",
+                "ignore_above" : 256
+              }
+            }
+          },
+          "duration" : {
+            "type" : "float"
+          },
+          "history" : {
+            "type" : "text",
+            "fields" : {
+              "keyword" : {
+                "type" : "keyword",
+                "ignore_above" : 256
+              }
+            }
+          },
+          "host" : {
+            "type" : "text",
+            "fields" : {
+              "keyword" : {
+                "type" : "keyword",
+                "ignore_above" : 256
+              }
+            }
+          },
+          "local_orig" : {
+            "type" : "boolean"
+          },
+          "local_resp" : {
+            "type" : "boolean"
+          },
+          "log_type" : {
+            "type" : "text",
+            "fields" : {
+              "keyword" : {
+                "type" : "keyword",
+                "ignore_above" : 256
+              }
+            }
+          },
+          "missed_bytes" : {
+            "type" : "long"
+          },
+          "orig_bytes" : {
+            "type" : "long"
+          },
+          "orig_h" : {
+            "type" : "ip",
+            "fields" : {
+              "keyword" : {
+                "type" : "keyword",
+                "ignore_above" : 256
+              }
+            }
+          },
+          "sourceIp" : {
+            "type" : "ip",
+            "fields" : {
+              "keyword" : {
+                "type" : "keyword",
+                "ignore_above" : 256
+              }
+            }
+          },
+          "orig_ip_bytes" : {
+            "type" : "long"
+          },
+          "use_userId" : {
+            "type" : "long"
+          },
+          "sendBytes" : {
+            "type" : "long"
+          },
+          "orig_p" : {
+            "type" : "long"
+          },
+          "orig_pkts" : {
+            "type" : "long"
+          },
+          "proto" : {
+            "type" : "text",
+            "fields" : {
+              "keyword" : {
+                "type" : "keyword",
+                "ignore_above" : 256
+              }
+            }
+          },
+          "resp_bytes" : {
+            "type" : "long"
+          },
+          "resp_h" : {
+            "type" : "ip",
+            "fields" : {
+              "keyword" : {
+                "type" : "keyword",
+                "ignore_above" : 256
+              }
+            }
+          },
+          "destinationIp" : {
+            "type" : "ip",
+            "fields" : {
+              "keyword" : {
+                "type" : "keyword",
+                "ignore_above" : 256
+              }
+            }
+          },
+          "resp_ip_bytes" : {
+            "type" : "long"
+          },
+          "resp_p" : {
+            "type" : "long"
+          },
+          "resp_pkts" : {
+            "type" : "long"
+          },
+          "service" : {
+            "type" : "text",
+            "fields" : {
+              "keyword" : {
+                "type" : "keyword",
+                "ignore_above" : 256
+              }
+            }
+          },
+          "source" : {
+            "type" : "text",
+            "fields" : {
+              "keyword" : {
+                "type" : "keyword",
+                "ignore_above" : 256
+              }
+            }
+          },
+          "tags" : {
+            "type" : "text",
+            "fields" : {
+              "keyword" : {
+                "type" : "keyword",
+                "ignore_above" : 256
+              }
+            }
+          },
+          "ts" : {
+            "type" : "double"
+          },
+          "tunnel_parents" : {
+            "type" : "text",
+            "fields" : {
+              "keyword" : {
+                "type" : "keyword",
+                "ignore_above" : 256
+              }
+            }
+          },
+          "type" : {
+            "type" : "text",
+            "fields" : {
+              "keyword" : {
+                "type" : "keyword",
+                "ignore_above" : 256
+              }
+            }
+          },
+          "uid" : {
+            "type" : "text",
+            "fields" : {
+              "keyword" : {
+                "type" : "keyword",
+                "ignore_above" : 256
+              }
+            }
+          }
+        }
+      }
+    }
+}

@@ -1,0 +1,80 @@
+{
+    "template": "aclog-*",
+    "order":1,
+    "settings": {
+	"index.number_of_shards" : 1,
+        "index.number_of_replicas" : 0,
+        "index.refresh_interval" : "30s"
+    },
+    "mappings" : {
+        "_doc": {
+            "properties" : {
+                "@timestamp" : {
+                    "type" : "date"
+                },
+                "@version" : {
+                    "type" : "text",
+                    "fields" : {
+                        "keyword" : {
+                            "type" : "keyword",
+                            "ignore_above" : 256
+                        }
+                    }
+                },
+                "isSecure" : {
+                    "type" : "boolean"
+                },
+                "sourceIp" : {
+                    "type" : "ip",
+                    "fields" : {
+                        "keyword" : {
+                            "type" : "keyword",
+                            "ignore_above" : 256
+                        }
+                    }
+                },
+                "destinationIp": {
+                    "type" : "ip",
+                    "fields" : {
+                        "keyword" : {
+                            "type" : "keyword",
+                            "ignore_above" : 256
+                        }
+                    }
+                },
+                "sendBytes" : {
+                    "type" : "long"
+                },
+                "use_userId" : {
+                    "type" : "long"
+                },
+                "channelType" : {
+                    "type" : "long"
+                },
+                "httpReqBodyBytes" : {
+                    "type" : "long"
+                },
+                "httpReqHdrBytes" : {
+                    "type" : "long"
+                },
+                "httpRspBodyBytes" : {
+                    "type" : "long"
+                },
+                "httpRspHdrBytes" : {
+                    "type" : "long"
+                },
+                "categoryTypes" : {
+                    "type" : "long"
+                },
+                "result" : {
+                    "properties" : {
+                        "urltype" : {
+                            "type" : "long"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+

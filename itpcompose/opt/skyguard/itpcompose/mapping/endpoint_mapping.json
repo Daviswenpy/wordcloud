@@ -1,0 +1,124 @@
+{
+    "template": "endpoint-*",
+    "order":1,
+    "settings": {
+        "index.number_of_shards" : 1,
+        "index.number_of_replicas" : 0,
+        "index.refresh_interval" : "60s",
+        "analysis": {
+            "char_filter": {
+                "quote": {
+                    "type": "mapping",
+                    "mappings": [
+                        "« => \"",
+                        "» => \""
+                    ]
+                }
+            },
+            "normalizer": {
+                "lowercase_normalizer": {
+                    "type": "custom",
+                    "char_filter": ["quote"],
+                    "filter": ["lowercase", "asciifolding"]
+                }
+            }
+        }
+    },
+    "mappings" : {
+        "_doc": {
+            "properties" : {
+                "@timestamp" : {
+                    "type" : "date"
+                },
+                "pid": {
+                    "type": "long"
+                },
+                "file_size": {
+                    "type": "long"
+                },
+                "UserName" : {
+                    "type" : "text",
+                    "fields" : {
+                        "keyword" : {
+                            "type" : "keyword",
+                            "ignore_above" : 256,
+                            "normalizer": "lowercase_normalizer"
+                        }
+                    }
+                },
+                "System_Name" : {
+                    "type" : "text",
+                    "fields" : {
+                        "keyword" : {
+                            "type" : "keyword",
+                            "ignore_above" : 256,
+                            "normalizer": "lowercase_normalizer"
+                        }
+                    }
+                },
+                "event": {
+                    "properties" : {
+                        "file_size": {
+                            "type": "long"
+                        },
+                        "contentLength": {
+                            "type": "long"
+                        },
+                        "addresses" : {
+                            "properties" : {
+                                "count" : {
+                                    "type" : "long"
+                                },
+                                "d_address" : {
+                                    "type" : "text",
+                                    "fields" : {
+                                        "keyword" : {
+                                            "type" : "keyword",
+                                            "ignore_above" : 256
+                                        }
+                                    }
+                                },
+                                "d_port" : {
+                                    "type" : "long"
+                                },
+                                "direct" : {
+                                    "type" : "long"
+                                },
+                                "proto" : {
+                                    "type" : "long"
+                                },
+                                "s_address" : {
+                                    "type" : "text",
+                                    "fields" : {
+                                        "keyword" : {
+                                            "type" : "keyword",
+                                            "ignore_above" : 256
+                                        }
+                                    }
+                                },
+                                "s_port" : {
+                                    "type" : "long"
+                                },
+                                "v" : {
+                                    "type" : "long"
+                                }
+                            }
+                        }
+                    }
+                },
+                "sourceIp" : {
+                    "type" : "ip",
+                    "fields" : {
+                        "keyword" : {
+                            "type" : "keyword",
+                            "ignore_above" : 256
+                        }
+                    }
+                },
+                "use_userId" : {
+                    "type" : "long"
+                }
+            }
+        }
+    }
+}

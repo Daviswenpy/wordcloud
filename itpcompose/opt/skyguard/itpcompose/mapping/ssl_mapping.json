@@ -1,0 +1,48 @@
+{
+    "template": "ssl-*",
+    "order":1,
+    "settings": {
+	"index.number_of_shards" : 1,
+        "index.number_of_replicas" : 0,
+        "index.refresh_interval" : "30s"
+    },
+    "mappings" : {
+        "_doc": {
+            "properties" : {
+                "@timestamp" : {
+                    "type" : "date"
+                },
+                "dga_probability": {
+                  "type" : "float"
+                },
+                "cnn_prob": {
+                  "type" : "float"
+                },
+                "ts" : {
+                  "type" : "double"
+                },
+                "sourceIp" : {
+                    "type" : "ip",
+                    "fields" : {
+                        "keyword" : {
+                            "type" : "keyword",
+                            "ignore_above" : 256
+                        }
+                    }
+                },
+                "destinationIp": {
+                    "type" : "ip",
+                    "fields" : {
+                        "keyword" : {
+                            "type" : "keyword",
+                            "ignore_above" : 256
+                        }
+                    }
+                },
+                "use_userId" : {
+                    "type" : "long"
+                }
+            }
+        }
+    }
+}

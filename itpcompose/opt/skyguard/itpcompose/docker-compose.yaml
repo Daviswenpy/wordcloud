@@ -1,0 +1,246 @@
+version: "2.1"
+services:
+  zoo1:
+    image: 172.22.111.199:80/docker-compose/zookeeper:3.4.9
+    hostname: zoo1
+    restart: always
+    networks:
+      app_net:
+        ipv4_address: 172.238.238.236
+    #ports:
+    #  - "2181:2181"
+    environment:
+        ZOO_MY_ID: 1
+        ZOO_PORT: 2181
+        ZOO_SERVERS: server.1=zoo1:2888:3888
+    volumes:
+      - ./zk-kafka/zoo1/data:/data
+      - ./zk-kafka/zoo1/datalog:/datalog
+
+  kafka1:
+    image: 172.22.111.199:80/docker-compose/cp-kafka:5.0.0
+    hostname: kafka1
+    restart: always
+    networks:
+      app_net:
+        ipv4_address: 172.238.238.237
+    #ports:
+    #  - "9092:9092"
+    environment:
+      KAFKA_NUM_PARTITIONS: 8
+      KAFKA_ADVERTISED_LISTENERS: LISTENER_DOCKER_INTERNAL://kafka1:19092,LISTENER_DOCKER_EXTERNAL://172.238.238.237:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: LISTENER_DOCKER_INTERNAL:PLAINTEXT,LISTENER_DOCKER_EXTERNAL:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: LISTENER_DOCKER_INTERNAL
+      KAFKA_ZOOKEEPER_CONNECT: "zoo1:2181"
+      KAFKA_BROKER_ID: 1
+      KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_LOG_RETENTION_HOURS: 24
+      KAFKA_LOG_RETENTION_BYTES: 5368709120 # 5G
+    volumes:
+      - ./zk-kafka/kafka1/data:/var/lib/kafka/data
+    depends_on:
+      - zoo1
+
+  redis:
+    image: 172.22.111.199:80/docker-compose/redis:4.0.2
+    command: redis-server --maxmemory-policy allkeys-lru --maxmemory 10737418240
+    networks:
+      app_net:
+        ipv4_address: 172.238.238.238
+    restart: always
+
+  elasticsearch:
+    image: 172.22.111.199:80/elastic/elasticsearch:6.7.2
+    environment:
+      - bootstrap.memory_lock=true
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    cap_add:
+      - IPC_LOCK
+    volumes:
+      - /var/skyguard/es-data:/usr/share/elasticsearch/data
+      - ./elasticsearch/elasticsearch:/etc/default/elasticsearch
+      - ./elasticsearch/config:/usr/share/elasticsearch/config
+      - /var/log/elasticsearch/logs:/usr/share/elasticsearch/logs
+      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
+      - /etc/timezone:/etc/timezone
+      #- ./elasticsearch/jvm.options:/etc/elasticsearch/jvm.options
+    command: elasticsearch
+    logging:
+      options:
+        max-size: "200M"
+        max-file: "5"
+    networks:
+      app_net:
+        ipv4_address: 172.238.238.239
+    healthcheck:
+        test: ["CMD", "curl", "-f", "-s", "http://172.238.238.239:9200/_cluster/health?wait_for_status=yellow&timeout=50s"]
+        interval: 30s
+        timeout: 10s
+        retries: 20 
+    restart: always
+
+  logstash-to-es:
+    image: 172.22.111.199:80/elastic/logstash:6.7.2
+    environment:
+      - LS_HEAP_SIZE=2048m
+    volumes:
+      - ./logstash/conf.d/logserver.conf:/etc/logstash/conf.d/logserver.conf
+      - ./logstash/logstash.yml:/etc/logstash/logstash.yml
+      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
+      - /etc/timezone:/etc/timezone
+      - ./logstash/plugin/logstash-filter-translate-3.2.3:/usr/share/logstash/vendor/bundle/jruby/2.5.0/gems/logstash-filter-translate-3.2.3
+      - ./logstash/plugin/logstash-filter-translate-3.2.3.gemspec:/usr/share/logstash/vendor/bundle/jruby/2.5.0/specifications/logstash-filter-translate-3.2.3.gemspec
+      - ./logstash/plugin/logstash-filter-elasticsearch-3.6.0:/usr/share/logstash/vendor/bundle/jruby/2.5.0/gems/logstash-filter-elasticsearch-3.6.0
+      - ./logstash/plugin/logstash-filter-elasticsearch-3.6.0.gemspec:/usr/share/logstash/vendor/bundle/jruby/2.5.0/specifications/logstash-filter-elasticsearch-3.6.0.gemspec
+      - ./logstash/plugin/logstash-filter-prune-3.0.4:/usr/share/logstash/vendor/bundle/jruby/2.5.0/gems/logstash-filter-prune-3.0.4
+      - ./logstash/plugin/logstash-filter-prune-3.0.4.gemspec:/usr/share/logstash/vendor/bundle/jruby/2.5.0/specifications/logstash-filter-prune-3.0.4.gemspec
+      - ./logstash/plugin/Gemfile:/usr/share/logstash/Gemfile
+      - ./logstash/plugin/ucss_mapping.json:/opt/ucss_mapping.json
+      - ./mapping/:/opt/mapping
+      - ./logstash/conf.d/grok_pattern.txt:/etc/logstash/grok_pattern/grok_pattern.txt
+    command: logstash -b 2000 -w 4 -f /etc/logstash/conf.d/logserver.conf
+    logging:
+      options:
+        max-size: "200M"
+        max-file: "5"
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    networks:
+      app_net:
+        ipv4_address: 172.238.238.240
+    restart: always
+
+  logstash-to-kafka:
+    image: 172.22.111.199:80/elastic/logstash:6.7.2
+    environment:
+      - LS_HEAP_SIZE=2048m
+    volumes:
+      - ./logstash/logstash.yml:/etc/logstash/logstash.yml
+      - ./logstash/logstash-in-redis-conf.d/logserver.conf:/etc/logstash/conf.d/logserver.conf
+      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
+      - /etc/timezone:/etc/timezone
+      - ./logstash/plugin/logstash-filter-translate-3.2.3:/usr/share/logstash/vendor/bundle/jruby/2.5.0/gems/logstash-filter-translate-3.2.3
+      - ./logstash/plugin/logstash-filter-translate-3.2.3.gemspec:/usr/share/logstash/vendor/bundle/jruby/2.5.0/specifications/logstash-filter-translate-3.2.3.gemspec
+      - ./logstash/plugin/logstash-filter-elasticsearch-3.6.0:/usr/share/logstash/vendor/bundle/jruby/2.5.0/gems/logstash-filter-elasticsearch-3.6.0
+      - ./logstash/plugin/logstash-filter-elasticsearch-3.6.0.gemspec:/usr/share/logstash/vendor/bundle/jruby/2.5.0/specifications/logstash-filter-elasticsearch-3.6.0.gemspec
+      - ./logstash/plugin/logstash-filter-prune-3.0.4:/usr/share/logstash/vendor/bundle/jruby/2.5.0/gems/logstash-filter-prune-3.0.4
+      - ./logstash/plugin/logstash-filter-prune-3.0.4.gemspec:/usr/share/logstash/vendor/bundle/jruby/2.5.0/specifications/logstash-filter-prune-3.0.4.gemspec
+      - ./logstash/plugin/Gemfile:/usr/share/logstash/Gemfile
+      - ./logstash/plugin/ucss_mapping.json:/opt/ucss_mapping.json
+    command: logstash -w 4 -f /etc/logstash/conf.d/logserver.conf
+    depends_on:
+      kafka1:
+        condition: service_started
+      elasticsearch:
+        condition: service_healthy
+    #ports:
+    #  - "5000:5000/udp"
+    networks:
+      app_net:
+        ipv4_address: 172.238.238.241
+    restart: always
+
+  kibana:
+    image: 172.22.111.199:80/elastic/kibana:6.7.2
+    volumes:
+      - ./kibana/kibana.yml:/etc/kibana/kibana.yml
+      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
+      - /etc/timezone:/etc/timezone
+    #ports:
+    #  - "5601:5601"
+    networks:
+      app_net:
+        ipv4_address: 172.238.238.242
+    restart: always
+
+  itp-mrs:
+    image: reg-cloud.skyguardmis.com/itp/mrs:3.8-014
+    depends_on:
+      redis:
+        condition: service_started
+      elasticsearch:
+        condition: service_healthy
+    volumes:
+      - ./itp/config/:/usr/share/ITP/mainserver/config/
+      - /var/log/itp/mrs/logs:/usr/share/ITP/mainserver/logs/
+      - ./itp/sources.list:/etc/apt/sources.list
+      - /opt/skyguard/itpcompose/mrs/models:/usr/share/ITP/mainserver/models/
+    networks:
+      app_net:
+        ipv4_address: 172.238.238.243
+    restart: always
+
+  zodiac:
+    image: reg-cloud.skyguardmis.com/itp/zodiac:3.8-014
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    volumes:
+      - /var/log/itp/zodiac/:/var/log/zodiac
+      - /var/skyguard/zodiac/data/:/usr/lib/zodiac/data
+      - ./zodiac/tasks/:/usr/lib/zodiac/tasks
+      - ./zodiac/EU/:/usr/lib/zodiac/EU
+      - ./zodiac/custom_ers_models/:/usr/lib/zodiac/custom_ers_models
+      - ./zodiac/conf/:/usr/lib/zodiac/conf
+    networks:
+      app_net:
+        ipv4_address: 172.238.238.245
+    # extra_hosts:
+    #   - "securitylabs.skyguard.com.cn:172.22.118.99"
+    restart: always
+    logging:
+      options:
+        max-size: "200M"
+        max-file: "5"
+
+  log-enrichment:
+    image: reg-cloud.skyguardmis.com/itp/log-enrichment:3.8-014
+    depends_on:
+      redis:
+        condition: service_started
+      kafka1:
+        condition: service_started
+    environment:
+      # DATA_SOURCE_SERVICE: redis
+      DATA_SOURCE_SERVICE: kafka
+    volumes:
+      - /var/log/itp/logenrichment/:/var/log/logenrichment
+    networks:
+      app_net:
+        ipv4_address: 172.238.238.247
+    restart: always
+    logging:
+      options:
+        max-size: "200M"
+        max-file: "5"
+
+  device-tag:
+    image: reg-cloud.skyguardmis.com/itp/device-tag:3.8-014
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    volumes:
+      - /var/log/itp/devicetag/:/var/log/itp/devicetag
+    networks:
+      app_net:
+        ipv4_address: 172.238.238.248
+    restart: always
+    logging:
+      options:
+        max-size: "200M"
+        max-file: "5"
+
+networks:
+  app_net:
+        driver: bridge
+        ipam:
+            driver: default
+            config:
+            - subnet: 172.238.238.0/24

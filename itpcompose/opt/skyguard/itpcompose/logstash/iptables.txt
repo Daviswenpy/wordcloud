@@ -1,0 +1,7 @@
+br_net=`ifconfig | grep -B 1 172.238.238.1 | head -n +1 | awk '{print $1}'`
+echo $br_net
+#iptables -t nat -D POSTROUTING -s 172.238.238.241/32 -d 172.238.238.241/32 -p udp -m udp --dport 5000 -j MASQUERADE
+#iptables -t nat -A DOCKER ! -i $br_net -p udp -m udp --dport 5000 -j DNAT --to-destination 172.238.238.241:5000
+#iptables -A DOCKER -d 172.238.238.241/32 ! -i $br_net -o $br_net -p udp -m udp --dport 5000 -j ACCEPT
+iptables -t nat -D DOCKER ! -i $br_net -p tcp -m tcp --dport 9200 -j DNAT --to-destination 172.238.238.239:9200
+iptables -D DOCKER -d 172.238.238.239/32 ! -i $br_net -o $br_net -p tcp -m tcp --dport 9200 -j ACCEPT

@@ -1,0 +1,15 @@
+cluster:
+  name: logserver
+
+http.host: 0.0.0.0
+
+http:
+  enabled: true
+  compression: true
+  cors:
+    enabled: true
+    allow-origin: "*"
+
+bootstrap.memory_lock: true
+bootstrap.system_call_filter: false
+path.data: /usr/share/elasticsearch/data

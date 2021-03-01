@@ -1,0 +1,1 @@
+{"model_update_server":"https://securitylabs.skyguard.com.cn/models/download/","server_cert":"client.pem","host":"172.238.238.239","user_name":"admin","password":"Firewall","celery_name":"celery_server","celery_broker":"redis://172.238.238.238:6379/0","max_agg_num":10000,"user_service":"172.238.238.1:5001/search","subdomains":[],"working_time":["09:00","20:00"]}

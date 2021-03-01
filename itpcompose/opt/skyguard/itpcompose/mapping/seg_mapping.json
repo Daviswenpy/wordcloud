@@ -1,0 +1,529 @@
+{
+    "template": "seg-*",
+    "order":1,
+    "settings": {
+        "index.number_of_shards" : 1,
+        "index.number_of_replicas" : 0,
+        "index.refresh_interval" : "60s"
+    },
+    "mappings" : {
+        "_doc" : {
+            "properties" : {
+                "@timestamp" : {
+                    "type" : "date"
+                },
+                "@version" : {
+                    "type" : "text",
+                    "fields" : {
+                        "keyword" : {
+                            "type" : "keyword",
+                            "ignore_above" : 256
+                        }
+                    }
+                },
+                "actionType" : {
+                    "type" : "long"
+                },
+                "analysisResult" : {
+                    "type" : "long"
+                },
+                "archiveEnable" : {
+                    "type" : "long"
+                },
+                "archiveMode" : {
+                    "type" : "long"
+                },
+                "archivePath" : {
+                    "type" : "text",
+                    "fields" : {
+                        "keyword" : {
+                            "type" : "keyword",
+                            "ignore_above" : 256
+                        }
+                    }
+                },
+                "attachments" : {
+                    "properties" : {
+                        "fileSize" : {
+                            "type" : "long"
+                        },
+                        "filename" : {
+                            "type" : "text",
+                            "fields" : {
+                                "keyword" : {
+                                    "type" : "keyword",
+                                    "ignore_above" : 256
+                                }
+                            }
+                        },
+                        "hashCode" : {
+                            "type" : "text",
+                            "fields" : {
+                                "keyword" : {
+                                    "type" : "keyword",
+                                    "ignore_above" : 256
+                                }
+                            }
+                        },
+                        "isInfected" : {
+                            "type" : "boolean"
+                        },
+                        "subAttachments" : {
+                            "properties" : {
+                                "fileSize" : {
+                                    "type" : "long"
+                                },
+                                "filename" : {
+                                    "type" : "text",
+                                    "fields" : {
+                                        "keyword" : {
+                                            "type" : "keyword",
+                                            "ignore_above" : 256
+                                        }
+                                    }
+                                },
+                                "hashCode" : {
+                                    "type" : "text",
+                                    "fields" : {
+                                        "keyword" : {
+                                            "type" : "keyword",
+                                            "ignore_above" : 256
+                                        }
+                                    }
+                                },
+                                "isInfected" : {
+                                    "type" : "boolean"
+                                },
+                                "virusNames" : {
+                                    "type" : "text",
+                                    "fields" : {
+                                        "keyword" : {
+                                            "type" : "keyword",
+                                            "ignore_above" : 256
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "virusNames" : {
+                            "type" : "text",
+                            "fields" : {
+                                "keyword" : {
+                                    "type" : "keyword",
+                                    "ignore_above" : 256
+                                }
+                            }
+                        }
+                    }
+                },
+                "auditFlag" : {
+                    "type" : "boolean"
+                },
+                "authEnable" : {
+                    "type" : "boolean"
+                },
+                "authUser" : {
+                    "type" : "text",
+                    "fields" : {
+                        "keyword" : {
+                            "type" : "keyword",
+                            "ignore_above" : 256
+                        }
+                    }
+                },
+                "bcc" : {
+                    "type" : "text",
+                    "fields" : {
+                        "keyword" : {
+                            "type" : "keyword",
+                            "ignore_above" : 256
+                        }
+                    }
+                },
+                "cc" : {
+                    "type" : "text",
+                    "fields" : {
+                        "keyword" : {
+                            "type" : "keyword",
+                            "ignore_above" : 256
+                        }
+                    }
+                },
+                "deliverDetail" : {
+                    "type" : "text",
+                    "fields" : {
+                        "keyword" : {
+                            "type" : "keyword",
+                            "ignore_above" : 256
+                        }
+                    }
+                },
+                "detectDateTime" : {
+                    "type" : "date"
+                },
+                "detectEngines" : {
+                    "type" : "long"
+                },
+                "deviceId" : {
+                    "type" : "text",
+                    "fields" : {
+                        "keyword" : {
+                            "type" : "keyword",
+                            "ignore_above" : 256
+                        }
+                    }
+                },
+                "direction" : {
+                    "type" : "long"
+                },
+                "engineScores" : {
+                    "properties" : {
+                        "score" : {
+                            "type" : "float"
+                        },
+                        "type" : {
+                            "type" : "long"
+                        }
+                    }
+                },
+                "from" : {
+                    "type" : "text",
+                    "fields" : {
+                        "keyword" : {
+                            "type" : "keyword",
+                            "ignore_above" : 256
+                        }
+                    }
+                },
+                "host" : {
+                    "type" : "ip",
+                    "fields" : {
+                        "keyword" : {
+                            "type" : "keyword",
+                            "ignore_above" : 256
+                        }
+                    }
+                },
+                "isInfected" : {
+                    "type" : "boolean"
+                },
+                "log_type" : {
+                    "type" : "text",
+                    "fields" : {
+                        "keyword" : {
+                            "type" : "keyword",
+                            "ignore_above" : 256
+                        }
+                    }
+                },
+                "logsource" : {
+                    "type" : "text",
+                    "fields" : {
+                        "keyword" : {
+                            "type" : "keyword",
+                            "ignore_above" : 256
+                        }
+                    }
+                },
+                "mailFrom" : {
+                    "type" : "text",
+                    "fields" : {
+                        "keyword" : {
+                            "type" : "keyword",
+                            "ignore_above" : 256
+                        }
+                    }
+                },
+                "mailSize" : {
+                    "type" : "long"
+                },
+                "mailTo" : {
+                    "type" : "text",
+                    "fields" : {
+                        "keyword" : {
+                            "type" : "keyword",
+                            "ignore_above" : 256
+                        }
+                    }
+                },
+                "malicousLinks" : {
+                    "properties" : {
+                        "categoryType" : {
+                            "type" : "long"
+                        },
+                        "name" : {
+                            "type" : "text",
+                            "fields" : {
+                                "keyword" : {
+                                    "type" : "keyword",
+                                    "ignore_above" : 256
+                                }
+                            }
+                        },
+                        "securityType" : {
+                            "properties" : {
+                                "cats" : {
+                                    "type" : "long"
+                                },
+                                "riskLevel" : {
+                                    "type" : "long"
+                                }
+                            }
+                        },
+                        "url" : {
+                            "type" : "text",
+                            "fields" : {
+                                "keyword" : {
+                                    "type" : "keyword",
+                                    "ignore_above" : 256
+                                }
+                            }
+                        }
+                    }
+                },
+                "matchedPolicies" : {
+                    "properties" : {
+                        "name" : {
+                            "type" : "text",
+                            "fields" : {
+                                "keyword" : {
+                                    "type" : "keyword",
+                                    "ignore_above" : 256
+                                }
+                            }
+                        },
+                        "uuid" : {
+                            "type" : "text",
+                            "fields" : {
+                                "keyword" : {
+                                    "type" : "keyword",
+                                    "ignore_above" : 256
+                                }
+                            }
+                        }
+                    }
+                },
+                "messageId" : {
+                    "type" : "text",
+                    "fields" : {
+                        "keyword" : {
+                            "type" : "keyword",
+                            "ignore_above" : 256
+                        }
+                    }
+                },
+                "pid" : {
+                    "type" : "long"
+                },
+                "program" : {
+                    "type" : "text",
+                    "fields" : {
+                        "keyword" : {
+                            "type" : "keyword",
+                            "ignore_above" : 256
+                        }
+                    }
+                },
+                "recvDateTime" : {
+                    "type" : "date"
+                },
+                "recverAddr" : {
+                    "type" : "text",
+                    "fields" : {
+                        "keyword" : {
+                            "type" : "keyword",
+                            "ignore_above" : 256
+                        }
+                    }
+                },
+                "releaseGateway" : {
+                    "type" : "text",
+                    "fields" : {
+                        "keyword" : {
+                            "type" : "keyword",
+                            "ignore_above" : 256
+                        }
+                    }
+                },
+                "replyTo" : {
+                    "type" : "text",
+                    "fields" : {
+                        "keyword" : {
+                            "type" : "keyword",
+                            "ignore_above" : 256
+                        }
+                    }
+                },
+                "returnPath" : {
+                    "type" : "text",
+                    "fields" : {
+                        "keyword" : {
+                            "type" : "keyword",
+                            "ignore_above" : 256
+                        }
+                    }
+                },
+                "riskLevel" : {
+                    "type" : "long"
+                },
+                "sendDateTime" : {
+                    "type" : "date"
+                },
+                "senderIp" : {
+                    "type" : "ip",
+                    "fields" : {
+                        "keyword" : {
+                            "type" : "keyword",
+                            "ignore_above" : 256
+                        }
+                    }
+                },
+                "smtpId" : {
+                    "type" : "text",
+                    "fields" : {
+                        "keyword" : {
+                            "type" : "keyword",
+                            "ignore_above" : 256
+                        }
+                    }
+                },
+                "statusType" : {
+                    "type" : "long"
+                },
+                "subject" : {
+                    "type" : "text",
+                    "fields" : {
+                        "keyword" : {
+                            "type" : "keyword",
+                            "ignore_above" : 256
+                        }
+                    }
+                },
+                "timestamp" : {
+                    "type" : "text",
+                    "fields" : {
+                        "keyword" : {
+                            "type" : "keyword",
+                            "ignore_above" : 256
+                        }
+                    }
+                },
+                "to" : {
+                    "type" : "text",
+                    "fields" : {
+                        "keyword" : {
+                            "type" : "keyword",
+                            "ignore_above" : 256
+                        }
+                    }
+                },
+                "type" : {
+                    "type" : "text",
+                    "fields" : {
+                        "keyword" : {
+                            "type" : "keyword",
+                            "ignore_above" : 256
+                        }
+                    }
+                },
+                "uuid" : {
+                    "type" : "text",
+                    "fields" : {
+                        "keyword" : {
+                            "type" : "keyword",
+                            "ignore_above" : 256
+                        }
+                    }
+                },
+                "virusInfo" : {
+                    "properties" : {
+                        "detectedEngine" : {
+                            "type" : "long"
+                        },
+                        "virusDesc" : {
+                            "type" : "text",
+                            "fields" : {
+                                "keyword" : {
+                                    "type" : "keyword",
+                                    "ignore_above" : 256
+                                }
+                            }
+                        },
+                        "virusId" : {
+                            "type" : "long"
+                        },
+                        "virusName" : {
+                            "type" : "text",
+                            "fields" : {
+                                "keyword" : {
+                                    "type" : "keyword",
+                                    "ignore_above" : 256
+                                }
+                            }
+                        },
+                        "virusPath" : {
+                            "type" : "text",
+                            "fields" : {
+                                "keyword" : {
+                                    "type" : "keyword",
+                                    "ignore_above" : 256
+                                }
+                            }
+                        },
+                        "virusType" : {
+                            "type" : "text",
+                            "fields" : {
+                                "keyword" : {
+                                    "type" : "keyword",
+                                    "ignore_above" : 256
+                                }
+                            }
+                        }
+                    }
+                },
+                "virusNames" : {
+                    "type" : "text",
+                    "fields" : {
+                        "keyword" : {
+                            "type" : "keyword",
+                            "ignore_above" : 256
+                        }
+                    }
+                },
+                "weakPassword" : {
+                    "type" : "boolean"
+                },
+                "xMailer" : {
+                    "type" : "text",
+                    "fields" : {
+                        "keyword" : {
+                            "type" : "keyword",
+                            "ignore_above" : 256
+                        }
+                    }
+                },
+                "use_userId" : {
+                    "type" : "long"
+                },
+                "userId": {
+                    "type": "text",
+                    "fields": {
+                        "keyword": {
+                            "type": "keyword",
+                            "ignore_above": 256
+                        }
+                    }
+                },
+                "xOriginatingIp" : {
+                    "type" : "ip",
+                    "fields" : {
+                        "keyword" : {
+                            "type" : "keyword",
+                            "ignore_above" : 256
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
